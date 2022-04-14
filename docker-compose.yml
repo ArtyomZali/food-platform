@@ -1,0 +1,27 @@
+version: "3.4"
+
+services:
+    backend:
+      build: 
+          context: .
+      expose:
+          - 5000
+          - 5432
+    db:
+      image: postgres
+      environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: "501222150"
+          POSTGRES_DB: food_platform_db
+      expose:
+          - 5432
+      volumes:
+          - db-data:/var/lib/postgresql/data
+      command:
+          - "postgres"
+          - "-c"
+          - "max_connections=1000"
+          - "-c"
+          - "shared_buffers=1GB"
+volumes:
+    db-data:

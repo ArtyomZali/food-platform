@@ -1,0 +1,62 @@
+import axios from 'axios';
+export default {
+    async getAssetsBySellerProfileId(id) {
+        return await axios.get(`${this.BASE_URL}/assets/by-seller-profile/${id}`);
+    },
+    async createSellerProfileAsset(assetData) {
+        return await axios.put(`${this.BASE_URL}/assets/seller-profile-asset`,
+            this.getFormDataFromObject(assetData),
+            {
+                headers: {
+                    'Authorization': this.getAuthToken()
+                }
+            }
+        );
+    },
+    async deleteSellerProfileAsset(id) {
+        return await axios.delete(`${this.BASE_URL}/assets/seller-profile-asset/${id}`, {
+            headers: {
+                'Authorization': this.getAuthToken()
+            }
+        });
+    },
+
+    async getAssetsByShopItemId(id) {
+        return await axios.get(`${this.BASE_URL}/assets/by-shop-item/${id}`);
+    },
+    async createShopItemAsset(assetData) {
+        return await axios.put(`${this.BASE_URL}/assets/shop-item-asset`,
+            this.getFormDataFromObject(assetData),
+            {
+                headers: {
+                    'Authorization': this.getAuthToken()
+                }
+            }
+        );
+    },
+    async deleteShopItemAsset(id) {
+        return await axios.delete(`${this.BASE_URL}/assets/shop-item-asset/${id}`, {
+            headers: {
+                'Authorization': this.getAuthToken()
+            }
+        });
+    },
+
+    async updateUserAvatar(assetData) {
+        return await axios.put(`${this.BASE_URL}/assets/user-avatar`,
+            this.getFormDataFromObject(assetData)
+        );
+    },
+
+    async updateSellerProfileAvatar(assetData) {
+        return await axios.put(`${this.BASE_URL}/assets/seller-profile-avatar`,
+            this.getFormDataFromObject(assetData)
+        );
+    },
+
+    async updateShopItemAvatar(assetData) {
+        return await axios.put(`${this.BASE_URL}/assets/shop-item-avatar`,
+            this.getFormDataFromObject(assetData)
+        );
+    }
+}
