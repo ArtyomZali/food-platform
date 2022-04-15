@@ -1,4 +1,4 @@
-const { Op } = require("sequelize/types");
+const { Op } = require("sequelize");
 const ApiError = require("../error/ApiError");
 const { Chat, SellerProfile, ChatMessage } = require("../models");
 

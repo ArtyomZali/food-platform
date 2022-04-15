@@ -10,11 +10,11 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       x: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
         allowNull: false,
       },
       y: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
         allowNull: false,
       },
       createdAt: {

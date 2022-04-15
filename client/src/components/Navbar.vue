@@ -22,37 +22,35 @@
       small
       class="basket-button"
       link
-      :to="'/basket'"
+      :to="'/seller-profile'"
+      v-if="isAuth"
+    >
+      <v-icon>mdi-barn</v-icon>
+    </v-btn>
+    <v-btn
+      elevation="0"
+      color="primary"
+      fab
+      small
+      class="basket-button"
+      link
+      :to="'/chats'"
+      v-if="isAuth"
+    >
+      <v-icon>mdi-message-outline</v-icon> </v-btn
+    ><v-btn
+      elevation="0"
+      color="primary"
+      fab
+      small
+      class="basket-button"
+      link
+      :to="'/profile'"
       v-if="isAuth"
     >
       <span class="basket-items-count">3</span>
-      <v-icon>mdi-basket</v-icon>
+      <v-icon>mdi-account</v-icon>
     </v-btn>
-    <v-menu v-if="isAuth">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn elevation="0" color="primary" fab small v-bind="attrs" v-on="on">
-          <v-icon>mdi-account</v-icon>
-        </v-btn>
-      </template>
-
-      <v-list>
-        <v-list-item>
-          <v-list-item-title>
-            <v-btn text to="/profile">Профиль</v-btn>
-          </v-list-item-title>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-title>
-            <v-btn text link to="/chats">Чаты</v-btn>
-          </v-list-item-title>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-title>
-            <v-btn text to="/seller-profile">Мои товары</v-btn>
-          </v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
     <v-btn
       elevation="0"
       color="primary"
@@ -70,11 +68,11 @@
 
 <script>
 export default {
-    computed: {
-        isAuth() {
-            return this.$store.getters.isAuth;
-        }
-    }
+  computed: {
+    isAuth() {
+      return this.$store.getters.isAuth;
+    },
+  },
 };
 </script>
 

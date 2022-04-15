@@ -1,13 +1,13 @@
 import axios from 'axios';
 export default {
     async getShopItems() {
-        return await axios.get(`${this.BASE_URL}/shop-items`);
+        return await axios.get(`${this.BASE_URL}/api/shop-items`);
     },
     async getShopItem(id) {
-        return await axios.get(`${this.BASE_URL}/shop-items/${id}`);
+        return await axios.get(`${this.BASE_URL}/api/shop-items/${id}`);
     },
     async createShopItem(shopItemData) {
-        return axios.post(`${this.BASE_URL}/shop-items/`,
+        return axios.post(`${this.BASE_URL}/api/shop-items/`,
             shopItemData,
             {
                 headers: {
@@ -16,7 +16,7 @@ export default {
             })
     },
     async updateShopItem(shopItemData) {
-        return axios.put(`${this.BASE_URL}/shop-items/${shopItemData.id}`,
+        return axios.put(`${this.BASE_URL}/api/shop-items/${shopItemData.id}`,
             shopItemData,
             {
                 headers: {
@@ -25,7 +25,7 @@ export default {
             })
     },
     async deleteShopItem(id) {
-        return axios.delete(`${this.BASE_URL}/shop-items/${id}`,
+        return axios.delete(`${this.BASE_URL}/api/shop-items/${id}`,
             {
                 headers: {
                     'Authorization': this.getAuthToken()

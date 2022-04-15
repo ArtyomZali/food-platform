@@ -5,10 +5,10 @@ class UserController extends BaseController {
 
   getInfo = async (req, res, next) => {
     try {
-      const accessToken = req.headers.authorization.split(" ")[1];
-      const data = await userService.getCurrentUserInfo(accessToken);
-      res.json(data);
+      const data = await userService.getCurrentUserInfo(req.userId);
+      return res.json(data);
     } catch (error) {
+      console.log(error);
       next(error);
     }
   };
@@ -17,11 +17,25 @@ class UserController extends BaseController {
     try {
       await this.respondWithValidationErrors(req, next);
 
-      await userService.update(req.userId, body);
+      await userService.update(req.userId, req.body);
       return res.json({
         success: true,
       });
     } catch (error) {
+      next(error);
+    }
+  };
+
+  updateAddress = async (req, res, next) => {
+    try {
+      await this.respondWithValidationErrors(req, next);
+
+      await userService.updateAddress(req.userId, req.body);
+      return res.json({
+        success: true,
+      });
+    } catch (error) {
+      console.log(error);
       next(error);
     }
   };

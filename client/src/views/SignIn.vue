@@ -71,6 +71,7 @@ export default {
       this.isLoading = true;
       await this.$callWithErrorHandler(async () => {
         await this.$api.signIn({ email: this.email, password: this.password });
+        await this.$api.checkAuth();
         this.$router.push("/");
       });
       this.isLoading = false;
@@ -89,12 +90,6 @@ export default {
 .v-btn.auth-btn {
   display: block;
   margin: 16px auto 0 auto;
-}
-
-.v-alert.auth-card__alert {
-  position: fixed;
-  bottom: 32px;
-  right: 32px;
 }
 
 .auth-card__title {

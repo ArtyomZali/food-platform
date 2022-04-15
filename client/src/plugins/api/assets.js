@@ -1,10 +1,10 @@
 import axios from 'axios';
 export default {
     async getAssetsBySellerProfileId(id) {
-        return await axios.get(`${this.BASE_URL}/assets/by-seller-profile/${id}`);
+        return await axios.get(`${this.BASE_URL}/api/assets/by-seller-profile/${id}`);
     },
     async createSellerProfileAsset(assetData) {
-        return await axios.put(`${this.BASE_URL}/assets/seller-profile-asset`,
+        return await axios.put(`${this.BASE_URL}/api/assets/seller-profile-asset`,
             this.getFormDataFromObject(assetData),
             {
                 headers: {
@@ -14,7 +14,7 @@ export default {
         );
     },
     async deleteSellerProfileAsset(id) {
-        return await axios.delete(`${this.BASE_URL}/assets/seller-profile-asset/${id}`, {
+        return await axios.delete(`${this.BASE_URL}/api/assets/seller-profile-asset/${id}`, {
             headers: {
                 'Authorization': this.getAuthToken()
             }
@@ -22,10 +22,10 @@ export default {
     },
 
     async getAssetsByShopItemId(id) {
-        return await axios.get(`${this.BASE_URL}/assets/by-shop-item/${id}`);
+        return await axios.get(`${this.BASE_URL}/api/assets/by-shop-item/${id}`);
     },
     async createShopItemAsset(assetData) {
-        return await axios.put(`${this.BASE_URL}/assets/shop-item-asset`,
+        return await axios.put(`${this.BASE_URL}/api/assets/shop-item-asset`,
             this.getFormDataFromObject(assetData),
             {
                 headers: {
@@ -35,7 +35,7 @@ export default {
         );
     },
     async deleteShopItemAsset(id) {
-        return await axios.delete(`${this.BASE_URL}/assets/shop-item-asset/${id}`, {
+        return await axios.delete(`${this.BASE_URL}/api/assets/shop-item-asset/${id}`, {
             headers: {
                 'Authorization': this.getAuthToken()
             }
@@ -43,20 +43,33 @@ export default {
     },
 
     async updateUserAvatar(assetData) {
-        return await axios.put(`${this.BASE_URL}/assets/user-avatar`,
-            this.getFormDataFromObject(assetData)
+        return await axios.post(`${this.BASE_URL}/api/assets/user-avatar`,
+            this.getFormDataFromObject(assetData), {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                'Authorization': this.getAuthToken()
+            }
+        }
         );
     },
 
     async updateSellerProfileAvatar(assetData) {
-        return await axios.put(`${this.BASE_URL}/assets/seller-profile-avatar`,
-            this.getFormDataFromObject(assetData)
+        return await axios.post(`${this.BASE_URL}/api/assets/seller-profile-avatar`,
+            this.getFormDataFromObject(assetData), {
+            headers: {
+                'Authorization': this.getAuthToken()
+            }
+        }
         );
     },
 
     async updateShopItemAvatar(assetData) {
-        return await axios.put(`${this.BASE_URL}/assets/shop-item-avatar`,
-            this.getFormDataFromObject(assetData)
+        return await axios.post(`${this.BASE_URL}/api/assets/shop-item-avatar`,
+            this.getFormDataFromObject(assetData), {
+            headers: {
+                'Authorization': this.getAuthToken()
+            }
+        }
         );
     }
 }

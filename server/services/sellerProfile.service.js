@@ -57,6 +57,19 @@ class SellerProfileService {
         return sellerProfile;
     }
 
+    async updateAddress(userId, body) {
+        let sellerProfile = await SellerProfile.findOne({
+            where: { userId },
+        });
+        if (!sellerProfile) throw ApiError.badRequest("Задан неверный параметр ID");
+
+        if (sellerProfile.addressId) {
+            return await Address.update(body, { where: { id: sellerProfile.addressId } });
+        } else {
+            return await sellerProfile.createAddress(body);
+        }
+    };
+
     async delete(userId) {
         const sellerProfile = await SellerProfile.findOne({ where: { userId } });
 

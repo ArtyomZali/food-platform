@@ -8,10 +8,6 @@ async function checkAuth(to, from, next) {
     await Vue.prototype.$api.checkAuth();
     next();
   } catch (err) {
-    if (Vue.prototype.$api.getRefreshToken.split[' '][1]) {
-      await Vue.prototype.$api.refreshToken();
-      await checkAuth();
-    }
     console.log(err);
   }
 }

@@ -38,4 +38,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.v-alert.auth-card__alert {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+}
 </style>

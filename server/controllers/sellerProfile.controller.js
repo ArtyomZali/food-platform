@@ -47,6 +47,19 @@ class SellerProfileController extends BaseController {
         }
     };
 
+    updateAddress = async (req, res, next) => {
+        try {
+            await this.respondWithValidationErrors(req, next);
+
+            await sellerProfileService.updateAddress(req.userId, req.body);
+            return res.json({
+                success: true,
+            });
+        } catch (error) {
+            next(error);
+        }
+    };
+
     delete = async (req, res, next) => {
         try {
             await sellerProfileService.delete(req.userId);

@@ -4,5 +4,8 @@ module.exports = {
   tokenService: require("./token.service"),
   purchaseService: require("./purchase.service"),
   reviewService: require("./review.service"),
-  shopItemService: require("./shopItem.service")
+  shopItemService: require("./shopItem.service"),
+  sellerProfileService: require("./sellerProfile.service"),
+  assetService: require("./asset.service"),
+  chatService: require("./chat.service")
 };

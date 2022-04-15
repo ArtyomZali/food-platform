@@ -20,7 +20,7 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    address: {
+    addressId: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {

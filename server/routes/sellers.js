@@ -17,6 +17,12 @@ router.post('/', [
     check('isPublished').notEmpty().isBoolean(),
     check('categories').notEmpty().isArray()
 ], sellerProfileController.create);
+router.put("/address", [
+    auth,
+    check('x').notEmpty().isFloat(),
+    check('y').notEmpty().isFloat(),
+], sellerProfileController.updateAddress);
+router.delete('/', auth, sellerProfileController.delete);
 router.put('/:id', [
     auth,
     check('name').notEmpty().isString(),
@@ -25,7 +31,7 @@ router.put('/:id', [
     check('isPublished').notEmpty().isBoolean(),
     check('categories').notEmpty().isArray()
 ], sellerProfileController.update);
-router.delete('/', auth, sellerProfileController.delete);
+
 router.get('/:id', sellerProfileController.getById);
 
 module.exports = router;

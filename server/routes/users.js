@@ -6,15 +6,17 @@ const { userController } = require("../controllers");
 const { check } = require("express-validator");
 
 // Routes
-router.get("/:id", userController.getById);
-router.get("/user-data", auth, userController.getInfo);
+router.get("/user-data", [auth], userController.getInfo);
 router.put("/user-data", [
     auth,
     check('email').notEmpty().isEmail(),
-    check('password').notEmpty().isString(),
-    check('firstName').notEmpty().isString(),
-    check('lastName').notEmpty().isString(),
-    check('address').isString()
+    check('name').notEmpty().isString(),
 ], userController.update);
+router.put("/address", [
+    auth,
+    check('x').notEmpty().isFloat(),
+    check('y').notEmpty().isFloat(),
+], userController.updateAddress);
+router.get("/:id", userController.getById);
 
 module.exports = router;

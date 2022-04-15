@@ -14,7 +14,7 @@ createUploadsDir();
 
 // Api routes
 app.use("/api", require("./routes"));
-app.use('/storage', express.static(`${__dirname}/uploads`));
+app.use('/uploads', express.static(`${__dirname}/uploads`));
 
 // Error handling middleware - should be the last
 app.use(errorHandler);

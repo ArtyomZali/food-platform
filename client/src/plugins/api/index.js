@@ -3,6 +3,10 @@ import assets from './assets';
 import auth from './auth';
 import sellers from './sellers';
 import shopItems from './shopItems';
+import user from './user';
+import purchases from './purchases';
+import reviews from './reviews';
+import chats from './chats';
 
 const api = {
   BASE_URL: process.env.VUE_APP_BASE_URL,
@@ -32,7 +36,11 @@ const api = {
   ...auth,
   ...assets,
   ...sellers,
-  ...shopItems
+  ...shopItems,
+  ...user,
+  ...purchases,
+  ...reviews,
+  ...chats
 };
 
 const plugin = {

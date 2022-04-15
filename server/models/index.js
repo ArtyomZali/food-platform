@@ -37,10 +37,10 @@ Chat.hasMany(ChatMessage, {
 ChatMessage.belongsTo(Chat);
 
 User.belongsTo(Address, {
-  foreignKey: 'address'
+  foreignKey: 'addressId'
 });
 SellerProfile.belongsTo(Address, {
-  foreignKey: 'address'
+  foreignKey: 'addressId'
 });
 
 Review.belongsTo(User, {

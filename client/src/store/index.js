@@ -25,7 +25,7 @@ export default new Vuex.Store({
       commit('setIsAuth', value);
     },
     triggerError({ commit }, message) {
-      commit('setIsErrorMessage', message);
+      commit('setErrorMessage', message);
       commit('setIsError', true);
       setTimeout(() => {
         commit('setIsError', false);

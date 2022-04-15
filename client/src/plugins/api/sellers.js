@@ -1,13 +1,13 @@
 import axios from 'axios';
 export default {
     async getSellerProfiles() {
-        return await axios.get(`${this.BASE_URL}/seller-profiles`);
+        return await axios.get(`${this.BASE_URL}/api/seller-profiles`);
     },
     async getSellerProfile(id) {
-        return await axios.get(`${this.BASE_URL}/seller-profiles/${id}`);
+        return await axios.get(`${this.BASE_URL}/api/seller-profiles/${id}`);
     },
     async getUserSellerProfile() {
-        return axios.post(`${this.BASE_URL}/seller-profiles/my`,
+        return axios.get(`${this.BASE_URL}/api/seller-profiles/my`,
             {
                 headers: {
                     'Authorization': this.getAuthToken()
@@ -15,7 +15,7 @@ export default {
             })
     },
     async createSellerProfile(sellerProfileData) {
-        return axios.post(`${this.BASE_URL}/seller-profiles/`,
+        return axios.post(`${this.BASE_URL}/api/seller-profiles/`,
             sellerProfileData,
             {
                 headers: {
@@ -24,7 +24,7 @@ export default {
             })
     },
     async updateSellerProfile(sellerProfileData) {
-        return axios.put(`${this.BASE_URL}/seller-profiles/${sellerProfileData.id}`,
+        return axios.put(`${this.BASE_URL}/api/seller-profiles/${sellerProfileData.id}`,
             sellerProfileData,
             {
                 headers: {
@@ -33,7 +33,7 @@ export default {
             })
     },
     async deleteSellerProfile(id) {
-        return axios.delete(`${this.BASE_URL}/seller-profiles/${id}`,
+        return axios.delete(`${this.BASE_URL}/api/seller-profiles/${id}`,
             {
                 headers: {
                     'Authorization': this.getAuthToken()

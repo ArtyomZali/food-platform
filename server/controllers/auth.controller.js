@@ -49,7 +49,6 @@ class AuthController extends BaseController {
   refreshToken = async (req, res, next) => {
     try {
       if (!req.headers.authorization) next(ApiError.unauthorized());
-
       const refreshToken = req.headers.authorization.split(' ')[1];
       const tokens = await authService.refreshToken(refreshToken);
 

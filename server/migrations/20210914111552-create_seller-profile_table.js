@@ -31,7 +31,7 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
-      address: {
+      addressId: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {

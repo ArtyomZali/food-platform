@@ -21,6 +21,13 @@
         :rules="passwordInputRules"
         validate-on-blur
       ></v-text-field>
+      <v-text-field
+        label="Повторите пароль"
+        type="password"
+        v-model="passwordAgain"
+        :rules="passwordAgainInputRules"
+        validate-on-blur
+      ></v-text-field>
     </v-form>
     <v-btn
       @click="signUp"
@@ -43,6 +50,7 @@ export default {
     return {
       email: "",
       password: "",
+      passwordAgain: "",
       name: "",
       isLoading: false,
       isInputValid: false,
@@ -77,6 +85,9 @@ export default {
           );
         },
       ],
+      passwordAgainInputRules: [
+        (value) => value === this.password || "Пароли не совпадают",
+      ],
     };
   },
 
@@ -90,6 +101,7 @@ export default {
           password: this.password,
         });
         await this.$api.signIn({ email: this.email, password: this.password });
+        await this.$api.checkAuth();
         this.$router.push("/");
       });
       this.isLoading = false;
@@ -108,12 +120,6 @@ export default {
 .v-btn.auth-btn {
   display: block;
   margin: 16px auto 0 auto;
-}
-
-.v-alert.auth-card__alert {
-  position: fixed;
-  bottom: 32px;
-  right: 32px;
 }
 
 .auth-card__title {

@@ -28,7 +28,7 @@ const SellerProfile = sequelize.define(
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
-    address: {
+    addressId: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
