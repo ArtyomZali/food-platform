@@ -14,7 +14,7 @@ class SellerProfileController extends BaseController {
 
     getCategories = async (req, res, next) => {
         try {
-            const data = await sellerProfileService.gtCategories();
+            const data = await sellerProfileService.getCategories();
 
             return res.json(data);
         } catch (error) {
@@ -30,6 +30,7 @@ class SellerProfileController extends BaseController {
 
             return res.json(data);
         } catch (error) {
+            console.log(error);
             next(error);
         }
     };
@@ -43,6 +44,7 @@ class SellerProfileController extends BaseController {
                 success: true,
             });
         } catch (error) {
+            console.log(error);
             next(error);
         }
     };
@@ -73,9 +75,10 @@ class SellerProfileController extends BaseController {
 
     getUserSellerProfile = async (req, res, next) => {
         try {
-            const data = await sellerProfileService.getById(req.userId);
+            const data = await sellerProfileService.getUserSellerProfile(req.userId);
             return res.json(data);
         } catch (error) {
+            console.log(error)
             next(error);
         }
     };

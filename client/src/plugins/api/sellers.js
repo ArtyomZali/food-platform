@@ -14,6 +14,9 @@ export default {
                 }
             })
     },
+    getSellerProfileCategories() {
+        return axios.get(`${this.BASE_URL}/api/seller-profiles/categories`);
+    },
     async createSellerProfile(sellerProfileData) {
         return axios.post(`${this.BASE_URL}/api/seller-profiles/`,
             sellerProfileData,
@@ -30,7 +33,16 @@ export default {
                 headers: {
                     'Authorization': this.getAuthToken()
                 }
-            })
+            });
+    },
+    async updateSellerProfileAddress(data) {
+        return axios.put(`${this.BASE_URL}/api/seller-profiles/address`,
+            data,
+            {
+                headers: {
+                    'Authorization': this.getAuthToken()
+                }
+            });
     },
     async deleteSellerProfile(id) {
         return axios.delete(`${this.BASE_URL}/api/seller-profiles/${id}`,

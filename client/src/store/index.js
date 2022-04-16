@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     isAuth: false,
     isError: false,
-    errorMessage: ''
+    errorMessage: '',
+    isLoading: false
   },
   mutations: {
     setIsAuth(state, value) {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     },
     setErrorMessage(state, value) {
       state.errorMessage = value;
+    },
+    setIsLoading(state, value) {
+      state.isLoading = value;
     }
   },
   actions: {
@@ -30,11 +34,21 @@ export default new Vuex.Store({
       setTimeout(() => {
         commit('setIsError', false);
       }, 5000);
+    },
+    setIsLoading({ commit }, value) {
+      if (value) {
+        commit('setIsLoading', value);
+      } else {
+        setTimeout(() => {
+          commit('setIsLoading', value);
+        }, 500);
+      }
     }
   },
   getters: {
     isAuth: state => state.isAuth,
     isError: state => state.isError,
-    errorMessage: state => state.errorMessage
+    errorMessage: state => state.errorMessage,
+    isLoading: state => state.isLoading
   }
 })

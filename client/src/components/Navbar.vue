@@ -15,42 +15,36 @@
     </div>
 
     <v-spacer></v-spacer>
-    <v-btn
-      elevation="0"
-      color="primary"
-      fab
-      small
-      class="basket-button"
-      link
-      :to="'/seller-profile'"
-      v-if="isAuth"
-    >
-      <v-icon>mdi-barn</v-icon>
-    </v-btn>
-    <v-btn
-      elevation="0"
-      color="primary"
-      fab
-      small
-      class="basket-button"
-      link
-      :to="'/chats'"
-      v-if="isAuth"
-    >
-      <v-icon>mdi-message-outline</v-icon> </v-btn
-    ><v-btn
-      elevation="0"
-      color="primary"
-      fab
-      small
-      class="basket-button"
-      link
-      :to="'/profile'"
-      v-if="isAuth"
-    >
-      <span class="basket-items-count">3</span>
-      <v-icon>mdi-account</v-icon>
-    </v-btn>
+    <div v-if="isAuth">
+      <v-btn
+        elevation="0"
+        color="primary"
+        fab
+        small
+        link
+        :to="'/seller-profile'"
+      >
+        <v-icon>mdi-barn</v-icon>
+      </v-btn>
+      <v-btn elevation="0" color="primary" fab small link :to="'/chats'">
+        <v-icon>mdi-message-outline</v-icon>
+      </v-btn>
+      <v-btn
+        elevation="0"
+        color="primary"
+        fab
+        small
+        class="basket-button"
+        link
+        :to="'/profile'"
+      >
+        <span class="basket-items-count">3</span>
+        <v-icon>mdi-account</v-icon>
+      </v-btn>
+      <v-btn elevation="0" color="primary" fab small @click="logout">
+        <v-icon>mdi-logout-variant</v-icon>
+      </v-btn>
+    </div>
     <v-btn
       elevation="0"
       color="primary"
@@ -71,6 +65,13 @@ export default {
   computed: {
     isAuth() {
       return this.$store.getters.isAuth;
+    },
+  },
+
+  methods: {
+    logout() {
+      this.$api.logout();
+      this.$router.go();
     },
   },
 };

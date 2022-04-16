@@ -32,5 +32,9 @@ export default {
         );
         this.setTokens(response.data);
         return response;
+    },
+
+    logout() {
+        this.removeTokens();
     }
 }

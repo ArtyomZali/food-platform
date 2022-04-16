@@ -15,10 +15,6 @@ const ShopItemAsset = sequelize.define(
         key: "id",
       },
     },
-    type: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
     link: {
       type: DataTypes.STRING,
       allowNull: false,

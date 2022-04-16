@@ -17,12 +17,12 @@ const ShopItemUnit = require('./shopItemUnit');
 User.hasOne(SellerProfile, {
   foreignKey: 'userId'
 });
-SellerProfile.belongsTo(User);
+SellerProfile.belongsTo(User, { foreignKey: 'userId' });
 
 SellerProfile.hasMany(SellerProfileAsset, {
   foreignKey: 'sellerProfileId'
 });
-SellerProfileAsset.belongsTo(SellerProfile);
+SellerProfileAsset.belongsTo(SellerProfile, { foreignKey: 'sellerProfileId' });
 
 Chat.belongsTo(User, {
   foreignKey: 'customerId'
@@ -59,7 +59,10 @@ ShopItemAsset.belongsTo(ShopItem);
 ShopItem.belongsTo(ShopItemUnit, {
   foreignKey: 'unitId'
 });
-ShopItemUnit.hasOne(ShopItem);
+ShopItemUnit.hasOne(ShopItem, { foreignKey: 'unitId' });
+
+ShopItem.belongsTo(SellerProfile, { foreignKey: 'ownerId' });
+SellerProfile.hasMany(ShopItem, { foreignKey: 'ownerId' });
 
 Purchase.belongsTo(User, {
   foreignKey: 'customerId'
@@ -70,8 +73,8 @@ Purchase.belongsTo(SellerProfile, {
 Purchase.belongsToMany(ShopItem, { through: PurchaseShopItem, foreignKey: 'shopItemId' });
 ShopItem.belongsToMany(Purchase, { through: PurchaseShopItem, foreignKey: 'purchaseId' });
 
-SellerProfile.belongsToMany(SellerProfileCategory, { through: SellerProfileCategoryBind, foreignKey: 'categoryId' });
-SellerProfileCategory.belongsToMany(SellerProfile, { through: SellerProfileCategoryBind, foreignKey: 'sellerProfileId' });
+SellerProfile.belongsToMany(SellerProfileCategory, { through: SellerProfileCategoryBind, foreignKey: 'sellerProfileId' });
+SellerProfileCategory.belongsToMany(SellerProfile, { through: SellerProfileCategoryBind, foreignKey: 'categoryId' });
 
 ShopItem.belongsTo(ShopItemCategory, { foreignKey: 'categoryId' });
 ShopItemCategory.hasMany(ShopItem, { foreignKey: 'categoryId' });

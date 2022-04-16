@@ -19,6 +19,11 @@ const api = {
     return `Bearer ${Cookies.get('jwt_r')}`;
   },
 
+  removeTokens() {
+    Cookies.remove('jwt_a');
+    Cookies.remove('jwt_r');
+  },
+
   setTokens(tokens) {
     Cookies.set('jwt_a', tokens.access);
     if (tokens.refresh)

@@ -1,8 +1,5 @@
 const ApiError = require("../error/ApiError");
-const { SellerProfile } = require("../models");
-const SellerProfileAsset = require("../models/sellerProfileAsset");
-const SellerProfileCategory = require("../models/sellerProfileCategory");
-const ShopItem = require("../models/shopItem");
+const { SellerProfile, Address, SellerProfileAsset, SellerProfileCategory, ShopItem } = require("../models");
 
 class SellerProfileService {
     async all() {
@@ -23,16 +20,21 @@ class SellerProfileService {
     }
 
     async create(userId, sellerProfileData) {
+        let sellerProfile = await SellerProfile.findOne({
+            where: { userId },
+        });
+
+        if (sellerProfile) throw ApiError.badRequest("Аккаунт продавца уже существует!");
+
         const { categories, ...rest } = sellerProfileData
         const dbCategories = await SellerProfileCategory.findAll({
             where: {
-                name: categories
+                name: categories.map(category => { return category.name })
             }
         })
-        const sellerProfile = await SellerProfile.create({ userId, ...rest });
-        for (let index = 0; index < dbCategories.length; index++) {
-            await sellerProfile.addSellerProfileCategory(dbCategories[index]);
-        }
+        sellerProfile = await SellerProfile.create({ userId, ...rest });
+        sellerProfile = await sellerProfile.setSellerProfileCategories(dbCategories);
+
         return sellerProfile;
     }
 
@@ -45,10 +47,10 @@ class SellerProfileService {
         const { categories, ...rest } = sellerProfileData
         const dbCategories = await SellerProfileCategory.findAll({
             where: {
-                name: categories
+                name: categories.map(category => { return category.name })
             }
         });
-        await sellerProfile.setSellerProfileCategorys([]);
+        await sellerProfile.setSellerProfileCategories([]);
         for (let index = 0; index < dbCategories.length; index++) {
             await sellerProfile.addSellerProfileCategory(dbCategories[index]);
         }
@@ -82,6 +84,25 @@ class SellerProfileService {
         });
     }
 
+    async getUserSellerProfile(userId) {
+        return await SellerProfile.findOne({
+            where: {
+                userId
+            },
+            include: [
+                {
+                    model: SellerProfileAsset
+                },
+                {
+                    model: SellerProfileCategory
+                },
+                {
+                    model: Address
+                }
+            ]
+        });
+    }
+
     async getById(id) {
         const sellerProfile = await SellerProfile.findByPk(id, {
             include: [
@@ -89,10 +110,15 @@ class SellerProfileService {
                     model: SellerProfileAsset
                 },
                 {
-                    model: ShopItem
+                    model: SellerProfileCategory
+                },
+                {
+                    model: Address
                 }
             ]
         });
+
+        if (!sellerProfile) throw ApiError.badRequest("Задан неверный параметр ID");
 
         return sellerProfile;
     }

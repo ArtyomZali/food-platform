@@ -29,7 +29,7 @@ const ShopItem = sequelize.define(
         key: "id",
       },
     },
-    unit: {
+    unitId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {

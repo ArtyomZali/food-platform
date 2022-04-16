@@ -11,9 +11,7 @@ router.get('/by-seller-profile/:id', assetController.getAssetsBySellerProfileId)
 router.get('/seller-profile-asset/:id', assetController.getSellerProfileAsset);
 router.post('/seller-profile-asset', [
     auth,
-    upload.single('file'),
-    check('file').notEmpty(),
-    check('type').notEmpty().isString().isIn(['image', 'video'])
+    upload.single('asset'),
 ], assetController.createSellerProfileAsset);
 router.delete('/seller-profile-asset/:id', auth, assetController.deleteSellerProfileAsset);
 
@@ -21,9 +19,7 @@ router.get('/by-shop-item/:id', assetController.getAssetsByShopItemId);
 router.get('/shop-item-asset/:id', assetController.getShopItemAsset);
 router.post('/shop-item-asset/:id', [
     auth,
-    upload.single('file'),
-    check('file').notEmpty(),
-    check('type').notEmpty().isString().isIn(['image', 'video'])
+    upload.single('asset')
 ], assetController.createShopItemAsset);
 router.delete('/shop-item-asset/:id', auth, assetController.deleteShopItemAsset);
 

@@ -87,19 +87,20 @@ export default {
     changeCoords(e) {
       this.address = e.get("coords");
     },
-    updateUserData() {
+    async updateUserData() {
       if (this.isFormValid) {
         this.isLoading = true;
-        this.$callWithErrorHandler(() => {
-          this.$api.updateUserData({ name: this.name, email: this.email });
+        await this.$callWithErrorHandler(async () => {
+          await this.$api.updateUserData({ name: this.name, email: this.email });
           if (this.address && !this.noAddress) {
-            this.$api.updateUserAddress({
+            await this.$api.updateUserAddress({
               x: this.address[0],
               y: this.address[1],
             });
           }
         });
         this.isLoading = false;
+        this.$emit('close');
       }
     },
   },

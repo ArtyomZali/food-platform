@@ -15,10 +15,6 @@ const SellerProfileAsset = sequelize.define(
         key: "id",
       },
     },
-    type: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     link: {
       type: DataTypes.STRING,
       allowNull: false,

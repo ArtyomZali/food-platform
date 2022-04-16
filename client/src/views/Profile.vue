@@ -51,13 +51,15 @@
         </v-tab-item>
       </v-tabs-items>
     </v-col>
-    <change-user-avatar-modal
-      @close="isChangeUserAvatarModalOpened = false"
-      :user="user"
+    <upload-asset-modal
+      @close="closeChangeUserAvatarModal"
       :isOpened="isChangeUserAvatarModalOpened"
+      :previousImageUrl="user.avatar"
+      title="Изменение аватара"
+      buttonLabel="Заменить"
     />
     <change-user-data-modal
-      @close="isChangeUserDataModalOpened = false"
+      @close="closeChangeUserDataModal"
       :user="user"
       :isOpened="isChangeUserDataModalOpened"
     />
@@ -67,14 +69,14 @@
 <script>
 import Basket from "../components/Basket.vue";
 import Purchases from "../components/Purchases.vue";
-import ChangeUserAvatarModal from "../components/ChangeUserAvatarModal.vue";
 import ChangeUserDataModal from "../components/ChangeUserDataModal.vue";
+import UploadAssetModal from "../components/UploadAssetModal.vue";
 export default {
   components: {
     Basket,
     Purchases,
-    ChangeUserAvatarModal,
     ChangeUserDataModal,
+    UploadAssetModal,
   },
 
   data() {
@@ -102,7 +104,7 @@ export default {
     userAvatar() {
       return this.user?.avatar
         ? `${this.$api.BASE_URL}${this.user.avatar}`
-        : require("@/assets/avatar.png");
+        : require("@/assets/default.png");
     },
     userAddress() {
       return this.user.Address
@@ -125,10 +127,27 @@ export default {
     openChangeUserAvatarModal() {
       this.isChangeUserAvatarModalOpened = true;
     },
+
+    closeChangeUserDataModal() {
+      this.isChangeUserDataModalOpened = false;
+      this.getUserData();
+    },
+
+    async closeChangeUserAvatarModal(value) {
+      if (value) {
+        await this.$callWithErrorHandler(async () => {
+          await this.$api.updateUserAvatar({ avatar: value });
+        });
+        this.getUserData();
+      }
+      this.isChangeUserAvatarModalOpened = false;
+    },
   },
 
   async beforeMount() {
-    this.getUserData();
+    this.$store.dispatch("setIsLoading", true);
+    await this.getUserData();
+    this.$store.dispatch("setIsLoading", false);
   },
 };
 </script>

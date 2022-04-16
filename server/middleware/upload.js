@@ -1,7 +1,7 @@
 const multer = require('multer');
 const { nanoid } = require('nanoid');
 const path = require('path');
-const imageMimetypes = ['image/png', 'image/jpeg', 'image/svg+xml'];
+const imageMimetypes = ['image/png', 'image/jpeg', 'image/svg+xml', 'video/mp4'];
 function filterImageMimetypes(req, file, cb) {
     if (imageMimetypes.includes(file.mimetype)) {
         cb(null, true);
@@ -32,7 +32,7 @@ const upload = multer({
     storage,
     fileFilter: filterImageMimetypes,
     limits: {
-        fileSize: 10000000,
+        fileSize: 100000000,
     },
 });
 

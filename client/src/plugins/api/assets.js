@@ -4,7 +4,7 @@ export default {
         return await axios.get(`${this.BASE_URL}/api/assets/by-seller-profile/${id}`);
     },
     async createSellerProfileAsset(assetData) {
-        return await axios.put(`${this.BASE_URL}/api/assets/seller-profile-asset`,
+        return await axios.post(`${this.BASE_URL}/api/assets/seller-profile-asset`,
             this.getFormDataFromObject(assetData),
             {
                 headers: {
@@ -25,7 +25,7 @@ export default {
         return await axios.get(`${this.BASE_URL}/api/assets/by-shop-item/${id}`);
     },
     async createShopItemAsset(assetData) {
-        return await axios.put(`${this.BASE_URL}/api/assets/shop-item-asset`,
+        return await axios.post(`${this.BASE_URL}/api/assets/shop-item-asset`,
             this.getFormDataFromObject(assetData),
             {
                 headers: {
