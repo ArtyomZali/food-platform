@@ -112,7 +112,12 @@ export default {
       });
     },
 
-    addShopItemAsset() {},
+    async addShopItemAsset(value) {
+      await this.$callWithErrorHandler(async () => {
+        await this.$api.createShopItemAsset({ asset: value }, this.shopItem.id);
+        this.$emit("update");
+      });
+    },
 
     showDeleteAssetModal(asset) {
       this.currentAsset = asset;
@@ -133,6 +138,13 @@ export default {
     async deleteSellerProfileAsset(asset) {
       await this.$callWithErrorHandler(async () => {
         await this.$api.deleteSellerProfileAsset(asset.id);
+        this.$emit("update");
+      });
+    },
+
+    async deleteShopItemAsset(asset) {
+      await this.$callWithErrorHandler(async () => {
+        await this.$api.deleteShopItemAsset(asset.id);
         this.$emit("update");
       });
     },

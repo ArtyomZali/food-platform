@@ -77,6 +77,7 @@ class AssetController extends BaseController {
 
       return res.json(data);
     } catch (error) {
+      console.log(error);
       next(error);
     }
   };
@@ -127,8 +128,7 @@ class AssetController extends BaseController {
     try {
       await this.respondWithValidationErrors(req, next);
 
-      await assetService.setSellerProfileAvatar(req.userId, req.params.id, req.file ? req.file.filename : null);
-
+      const data = await assetService.setShopItemAvatar(req.userId, req.params.id, req.file ? req.file.filename : null);
       return res.json({
         success: true,
       });

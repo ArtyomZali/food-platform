@@ -4,7 +4,14 @@ const BaseController = require('./base.controller');
 class SellerProfileController extends BaseController {
     all = async (req, res, next) => {
         try {
-            const data = await sellerProfileService.all();
+            const categories = req.query.categories;
+            const sort = req.query.sort;
+            const search = req.query.search;
+            const data = await sellerProfileService.all({
+                categories: categories ? categories.split(',') : null,
+                sort,
+                search
+            });
 
             return res.json(data);
         } catch (error) {
@@ -15,6 +22,16 @@ class SellerProfileController extends BaseController {
     getCategories = async (req, res, next) => {
         try {
             const data = await sellerProfileService.getCategories();
+
+            return res.json(data);
+        } catch (error) {
+            next(error);
+        }
+    };
+
+    getExtendedCategories = async (req, res, next) => {
+        try {
+            const data = await sellerProfileService.getExtendedCategories();
 
             return res.json(data);
         } catch (error) {

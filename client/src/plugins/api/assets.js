@@ -24,8 +24,8 @@ export default {
     async getAssetsByShopItemId(id) {
         return await axios.get(`${this.BASE_URL}/api/assets/by-shop-item/${id}`);
     },
-    async createShopItemAsset(assetData) {
-        return await axios.post(`${this.BASE_URL}/api/assets/shop-item-asset`,
+    async createShopItemAsset(assetData, shopItemId) {
+        return await axios.post(`${this.BASE_URL}/api/assets/shop-item-asset/${shopItemId}`,
             this.getFormDataFromObject(assetData),
             {
                 headers: {
@@ -63,8 +63,8 @@ export default {
         );
     },
 
-    async updateShopItemAvatar(assetData) {
-        return await axios.post(`${this.BASE_URL}/api/assets/shop-item-avatar`,
+    async updateShopItemAvatar(assetData, shopItemId) {
+        return await axios.post(`${this.BASE_URL}/api/assets/shop-item-avatar/${shopItemId}`,
             this.getFormDataFromObject(assetData), {
             headers: {
                 'Authorization': this.getAuthToken()

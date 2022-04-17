@@ -25,15 +25,13 @@ module.exports = {
         type: Sequelize.DOUBLE,
         allowNull: false,
       },
-      unitId: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: {
-          model: {
-            tableName: "shopItemUnits",
-          },
-          key: "id",
-        },
+      unitName: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      isUnitInteger: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
       },
       categoryId: {
         type: Sequelize.INTEGER,

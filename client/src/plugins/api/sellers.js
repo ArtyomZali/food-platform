@@ -1,7 +1,7 @@
 import axios from 'axios';
 export default {
-    async getSellerProfiles() {
-        return await axios.get(`${this.BASE_URL}/api/seller-profiles`);
+    async getSellerProfiles(query) {
+        return await axios.get(`${this.BASE_URL}/api/seller-profiles${query ? query : ''}`);
     },
     async getSellerProfile(id) {
         return await axios.get(`${this.BASE_URL}/api/seller-profiles/${id}`);
@@ -14,8 +14,11 @@ export default {
                 }
             })
     },
-    getSellerProfileCategories() {
-        return axios.get(`${this.BASE_URL}/api/seller-profiles/categories`);
+    async getSellerProfileCategories() {
+        return await axios.get(`${this.BASE_URL}/api/seller-profiles/categories`);
+    },
+    async getExtendedSellerProfileCategories() {
+        return await axios.get(`${this.BASE_URL}/api/seller-profiles/categories/extended`);
     },
     async createSellerProfile(sellerProfileData) {
         return axios.post(`${this.BASE_URL}/api/seller-profiles/`,

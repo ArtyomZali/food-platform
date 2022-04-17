@@ -9,6 +9,7 @@ const { check } = require('express-validator');
 router.get('/', sellerProfileController.all);
 router.get('/my', [auth], sellerProfileController.getUserSellerProfile);
 router.get('/categories', sellerProfileController.getCategories);
+router.get('/categories/extended', sellerProfileController.getExtendedCategories);
 router.post('/', [
     auth,
     check('name').notEmpty().isString(),

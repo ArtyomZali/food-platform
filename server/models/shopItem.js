@@ -4,7 +4,6 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("../db");
 const SellerProfile = require('./sellerProfile');
 const ShopItemCategory = require("./shopItemCategory");
-const ShopItemUnit = require("./shopItemUnit");
 
 const ShopItem = sequelize.define(
   "ShopItem",
@@ -29,14 +28,6 @@ const ShopItem = sequelize.define(
         key: "id",
       },
     },
-    unitId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: ShopItemUnit,
-        key: "id",
-      },
-    },
     avatar: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -44,6 +35,14 @@ const ShopItem = sequelize.define(
     count: {
       type: DataTypes.DOUBLE,
       allowNull: true,
+    },
+    unitName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    isUnitInteger: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
     },
     categoryId: {
       type: DataTypes.INTEGER,

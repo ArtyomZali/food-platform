@@ -1,5 +1,5 @@
 const ApiError = require("../error/ApiError");
-const { SellerProfile, Address, SellerProfileAsset, SellerProfileCategory, ShopItem } = require("../models");
+const { SellerProfile, Address, SellerProfileAsset, SellerProfileCategory, ShopItem, ShopItemCategory } = require("../models");
 
 class SellerProfileService {
     async all() {
@@ -17,6 +17,10 @@ class SellerProfileService {
 
     async getCategories() {
         return await SellerProfileCategory.findAll();
+    }
+
+    async getExtendedCategories() {
+        return await SellerProfileCategory.findAll({ include: [{ model: ShopItemCategory }] });
     }
 
     async create(userId, sellerProfileData) {

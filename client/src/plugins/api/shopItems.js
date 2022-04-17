@@ -1,8 +1,21 @@
 import axios from 'axios';
 export default {
-    async getShopItems() {
-        return await axios.get(`${this.BASE_URL}/api/shop-items`);
+    async getShopItems(query) {
+        return await axios.get(`${this.BASE_URL}/api/shop-items${query ? query : ''}`);
     },
+
+    async getUserShopItems() {
+        return await axios.get(`${this.BASE_URL}/api/shop-items/my`, {
+            headers: {
+                'Authorization': this.getAuthToken()
+            }
+        })
+    },
+
+    async getShopItemCategories() {
+        return await axios.get(`${this.BASE_URL}/api/shop-items/categories`);
+    },
+
     async getShopItem(id) {
         return await axios.get(`${this.BASE_URL}/api/shop-items/${id}`);
     },

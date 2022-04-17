@@ -12,7 +12,6 @@ const Address = require('./address');
 const SellerProfileCategory = require('./sellerProfileCategory');
 const SellerProfileCategoryBind = require('./sellerProfileCategoryBind');
 const ShopItemCategory = require('./shopItemCategory');
-const ShopItemUnit = require('./shopItemUnit');
 
 User.hasOne(SellerProfile, {
   foreignKey: 'userId'
@@ -49,17 +48,12 @@ Review.belongsTo(User, {
 Review.belongsTo(ShopItem, {
   foreignKey: 'shopItemId'
 });
-ShopItem.hasMany(Review);
+ShopItem.hasMany(Review, { foreignKey: 'shopItemId' });
 
 ShopItem.hasMany(ShopItemAsset, {
   foreignKey: 'shopItemId'
 });
-ShopItemAsset.belongsTo(ShopItem);
-
-ShopItem.belongsTo(ShopItemUnit, {
-  foreignKey: 'unitId'
-});
-ShopItemUnit.hasOne(ShopItem, { foreignKey: 'unitId' });
+ShopItemAsset.belongsTo(ShopItem, { foreignKey: 'shopItemId' });
 
 ShopItem.belongsTo(SellerProfile, { foreignKey: 'ownerId' });
 SellerProfile.hasMany(ShopItem, { foreignKey: 'ownerId' });
@@ -97,5 +91,4 @@ module.exports = {
   SellerProfileCategory,
   SellerProfileCategoryBind,
   ShopItemCategory,
-  ShopItemUnit,
 };

@@ -96,7 +96,7 @@
             v-for="tab in tabs"
             :key="`profile-page-tabbed-${tab.id}`"
           >
-            <component :is="tab.component" />
+            <component :is="tab.component" :sellerProfile="sellerProfile" />
           </v-tab-item> </v-tabs-items
       ></v-col>
     </div>
@@ -144,7 +144,7 @@ import CreateSellerProfileModal from "../components/CreateSellerProfileModal.vue
 import ChangeSellerProfileDataModal from "../components/ChangeSellerProfileDataModal.vue";
 import SellerShopItems from "../components/SellerShopItems.vue";
 import Orders from "../components/Orders.vue";
-import AssetsSlider from "../components/AssetSlider.vue";
+import AssetsSlider from "../components/AssetsSlider.vue";
 import UploadAssetModal from "../components/UploadAssetModal.vue";
 import ConfirmationModal from "../components/ConfirmationModal.vue";
 

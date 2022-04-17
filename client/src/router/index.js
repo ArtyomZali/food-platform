@@ -46,6 +46,11 @@ const routes = [
     component: () => import('../views/ShopItem.vue'),
   },
   {
+    path: '/seller-shop-item/:id',
+    name: 'SellerShopItem',
+    component: () => import('../views/SellerShopItem.vue'),
+  },
+  {
     path: '/profile',
     name: 'Profile',
     component: () => import('../views/Profile.vue'),

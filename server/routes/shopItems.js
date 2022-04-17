@@ -7,6 +7,7 @@ const { check } = require('express-validator');
 
 // Routes
 router.get('/', shopItemController.all);
+router.get('/my', [auth], shopItemController.getUserShopItems);
 router.get('/by-owner-id/:id', shopItemController.getByOwnerId);
 router.get('/categories', shopItemController.getCategories);
 router.post('/', [
@@ -15,7 +16,9 @@ router.post('/', [
     check('description').exists().isString(),
     check('count').notEmpty().isInt(),
     check('isPublished').notEmpty().isBoolean(),
-    check('categoryId').exists(),
+    check('category').exists(),
+    check('unitName').notEmpty().isString(),
+    check('isUnitInteger').notEmpty().isBoolean()
 ], shopItemController.create);
 router.put('/:id', [
     auth,
@@ -23,19 +26,11 @@ router.put('/:id', [
     check('description').isString(),
     check('count').notEmpty().isInt(),
     check('isPublished').notEmpty().isBoolean(),
-    check('categoryId').exists(),
+    check('category').exists(),
+    check('unitName').notEmpty().isString(),
+    check('isUnitInteger').notEmpty().isBoolean()
 ], shopItemController.update);
-router.post('/:id/unit', [
-    auth,
-    check('name').notEmpty().isString(),
-    check('isInteger').notEmpty().isBoolean()
-], shopItemController.createUnit);
-router.put('/:id/unit/', [
-    auth,
-    check('name').notEmpty().isString(),
-    check('isInteger').notEmpty().isBoolean()
-], shopItemController.updateUnit);
 router.delete('/:id', auth, shopItemController.delete);
-router.get('/:id', auth, shopItemController.getById);
+router.get('/:id', shopItemController.getById);
 
 module.exports = router;
