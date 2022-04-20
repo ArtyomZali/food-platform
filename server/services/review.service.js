@@ -1,13 +1,16 @@
 const ApiError = require('../error/ApiError');
-const { Review } = require('../models');
+const { Review, SellerProfile, ShopItem, User } = require('../models');
 
 class ReviewService {
 
   async create(userId, reviewData) {
     const otherReview = await Review.findOne({ where: { authorId: userId } });
+    const sellerProfile = await SellerProfile.findOne({ where: userId });
+    const shopItem = await ShopItem.findByPk(reviewData.shopItemId);
+    if (sellerProfile && sellerProfile.id === shopItem.ownerId) throw ApiError.badRequest("Владелец товара не может оставлять на него отзыв");
     if (otherReview) throw ApiError.conflict("Невозможно создать более одного отзыва на товар");
 
-    return await Review.create(reviewData);
+    return await Review.create({ ...reviewData, authorId: userId });
   }
 
   async delete(userId, id) {
@@ -26,7 +29,15 @@ class ReviewService {
   }
 
   async getByShopItemId(id) {
-    return await Review.findAll({ where: { shopItemId: id } });
+    return await Review.findAll({
+      where: { shopItemId: id },
+      include: [
+        {
+          model: User,
+          attributes: { exclude: ['password'] }
+        }
+      ]
+    });
   }
 }
 

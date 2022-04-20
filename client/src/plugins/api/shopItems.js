@@ -12,6 +12,10 @@ export default {
         })
     },
 
+    async getShopItemsByOwnerId(id) {
+        return await axios.get(`${this.BASE_URL}/api/shop-items/by-owner-id/${id}`);
+    },
+
     async getShopItemCategories() {
         return await axios.get(`${this.BASE_URL}/api/shop-items/categories`);
     },

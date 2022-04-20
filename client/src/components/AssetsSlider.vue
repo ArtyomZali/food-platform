@@ -1,16 +1,17 @@
 <template>
-  <v-container class="slider-container">
+  <v-container :class="`slider-container slider-container--${size}`">
     <vue-horizontal>
       <asset
         v-for="asset in assets"
         :key="`asset-${asset.link}`"
         :asset="asset"
-        :mutable="true"
+        :mutable="mutable"
         @delete="showDeleteAssetModal(asset)"
         @show="showAsset(asset)"
         :size="size"
       />
       <button
+      v-if="mutable"
         :class="`add-asset-btn add-asset-btn--${size}`"
         @click="openUploadAssetModal"
       >
@@ -165,6 +166,10 @@ export default {
   max-width: 500px;
   margin: unset;
 }
+
+.slider-container.slider-container--lg {
+  max-width: unset;
+}
 .add-asset-btn {
   color: #aaa;
   border: 4px dashed #aaa;
@@ -178,8 +183,8 @@ export default {
 }
 
 .add-asset-btn--lg {
-  width: 360px;
-  height: 360px;
-  font-size: 192px;
+  width: 240px;
+  height: 240px;
+  font-size: 128px;
 }
 </style>

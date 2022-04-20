@@ -62,7 +62,7 @@
     <v-divider vertical></v-divider>
     <v-col>
       <h2>Отзывы</h2>
-      <reviews />
+      <reviews :shopItem="shopItem" :mutable="false"/>
     </v-col>
     <upload-asset-modal
       :isOpened="isChangeShopItemAvatarModalOpened"

@@ -94,6 +94,7 @@ class ShopItemController extends BaseController {
       const data = await shopItemService.getByOwnerId(req.params.id);
       return res.json(data);
     } catch (error) {
+      console.log(error);
       next(error);
     }
   };

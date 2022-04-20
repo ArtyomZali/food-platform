@@ -13,6 +13,6 @@ router.post('/', [
     check('grade').notEmpty().isIn([0, 1, 2, 3, 4, 5])
 ], reviewController.create);
 router.delete('/:id', auth, reviewController.delete);
-router.get('get-by-shop-item/:id', reviewController.getByShopItemId);
+router.get('/get-by-shop-item/:id', reviewController.getByShopItemId);
 
 module.exports = router;

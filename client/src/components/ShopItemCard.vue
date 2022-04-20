@@ -14,17 +14,16 @@
     <v-divider></v-divider>
     <div class="rate-block">
       <h5 v-if="shopItem && !shopItem.Reviews.length">Товар еще не оценен</h5>
-      <v-rating
-        v-else
-        empty-icon="$mdiStarOutline"
-        full-icon="$mdiStar"
-        half-icon="$mdiStarHalfFull"
-        half-increments
-        hover
-        length="5"
-        size="64"
-        value="3"
-      ></v-rating>
+      <div v-else>
+        <h4>Средняя оценка: {{ averageReview }}</h4>
+        <v-rating
+          half-increments
+          readonly
+          length="5"
+          size="32"
+          :value="averageReview"
+        ></v-rating>
+      </div>
     </div>
   </v-card>
 </template>
@@ -48,6 +47,12 @@ export default {
         ? `${this.$api.BASE_URL}${this.shopItem.avatar}`
         : require("@/assets/default.png");
     },
+
+    averageReview() {
+      return this.shopItem?.Reviews?.reduce((a, b) => {
+        return a + b.grade / this.shopItem.Reviews.length;
+      }, 0).toFixed(1);
+    },
   },
 };
 </script>
@@ -66,17 +71,17 @@ export default {
 
 .shop-item-description {
   overflow: hidden;
-   text-overflow: ellipsis;
-   display: -webkit-box;
-   -webkit-line-clamp: 3; /* number of lines to show */
-           line-clamp: 3; 
-   -webkit-box-orient: vertical
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .rate-block {
-    padding: 16px 0;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+  padding: 16px 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 </style>

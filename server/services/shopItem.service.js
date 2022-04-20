@@ -7,7 +7,7 @@ class ShopItemService {
   async all(query) {
     const whereParams = {};
 
-    
+
     if (query.categories)
       whereParams.categoryId = {
         [Op.in]: query.categories,
@@ -118,11 +118,15 @@ class ShopItemService {
   async getByOwnerId(ownerId) {
     const shopItems = await ShopItem.findAll({
       where: {
-        ownerId
-      }
-    })
-
-    if (!ShopItems.length) throw ApiError.badRequest("Задан неверный параметр ID");
+        ownerId,
+        isPublished: true
+      },
+      include: [
+        {
+          model: Review
+        }
+      ]
+    });
 
     return shopItems;
   }

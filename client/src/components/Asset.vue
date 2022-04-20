@@ -55,8 +55,8 @@ export default {
 }
 
 .asset--lg {
-  width: 360px;
-  height: 360px;
+  width: 240px;
+  height: 240px;
 }
 
 .video-placeholder {

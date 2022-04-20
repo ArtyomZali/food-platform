@@ -27,9 +27,10 @@ class ReviewController extends BaseController {
 
   getByShopItemId = async (req, res, next) => {
     try {
-      const data = await reviewService.getById(req.params.id);
+      const data = await reviewService.getByShopItemId(req.params.id);
       return res.json(data);
     } catch (error) {
+      console.log(error);
       next(error);
     }
   };
