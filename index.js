@@ -24,6 +24,4 @@ app.use('/uploads', express.static(`${__dirname}/uploads`));
 app.use(errorHandler);
 
 // Init server
-app.listen(process.env.PORT || 5000, () => {
-  console.log(`App is listening at :${__PORT__}`);
-});
+app.listen(process.env.PORT || 5000);
