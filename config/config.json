@@ -17,6 +17,7 @@
     "dialect": "postgres",
     "jwtAccessSecret": "hse-cs-2022",
     "jwtRefreshSecret": "hse-cs-refresh-2022",
-    "loginSecret": "hse-cs-2022-login-secret"
+    "loginSecret": "hse-cs-2022-login-secret",
+    "use_env_variable": "DATABASE_URL"
   }
 }
