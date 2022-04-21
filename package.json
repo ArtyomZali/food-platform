@@ -6,7 +6,7 @@
   "scripts": {
     "run:dev": "yarn sequelize-cli db:migrate && yarn sequelize-cli db:seed:all && SET NODE_ENV=development && nodemon index.js",
     "run:prod": "yarn sequelize-cli db:migrate --env production && yarn sequelize-cli db:seed:all --mode production && SET NODE_ENV=production && node index.js",
-    "start": "node index.js"
+    "start": "SET NODE_ENV=production node index.js"
   },
   "author": "",
   "license": "ISC",
