@@ -10,13 +10,16 @@
     "loginSecret": "hse-cs-2022-login-secret"
   },
   "production": {
-    "username": "vckdqvmyyrpcdi",
-    "password": "7cd4a51cf8d4c2b28cf6ef4d45327363b59fdc8859bd8e9ba8601c6d066dee9f",
-    "database": "food_platform_db",
-    "host": "ec2-3-211-6-217.compute-1.amazonaws.com",
+    "use_env_variable": "DATABASE_URL",
     "dialect": "postgres",
-    "jwtAccessSecret": "hse-cs-2022",
-    "jwtRefreshSecret": "hse-cs-refresh-2022",
-    "loginSecret": "hse-cs-2022-login-secret"
-  }
+    "dialectOptions": {
+       "ssl": {
+         "require": true,
+         "rejectUnauthorized": false
+       }
+     },
+     "jwtAccessSecret": "hse-cs-2022",
+     "jwtRefreshSecret": "hse-cs-refresh-2022",
+     "loginSecret": "hse-cs-2022-login-secret"
+   }
 }
