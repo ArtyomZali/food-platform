@@ -23,7 +23,7 @@ app.use('/uploads', express.static(`${__dirname}/uploads`));
 // Error handling middleware - should be the last
 app.use(errorHandler);
 
-const __PORT__ = 5000;
+const __PORT__ = 8080;
 
 // Init server
 app.listen(__PORT__, () => {
