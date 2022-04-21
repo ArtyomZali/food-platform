@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const { errorHandler } = require("./middleware");
 const { createUploadsDir } = require("./utils");
-
+const path = __dirname + '/dist';
 require("./db");
 
 app.use(cors());
@@ -14,6 +14,10 @@ createUploadsDir();
 
 // Api routes
 app.use("/api", require("./routes"));
+app.use(express.static(path))
+app.get('/', function (req,res) {
+  res.sendFile(path + "index.html");
+});
 app.use('/uploads', express.static(`${__dirname}/uploads`));
 
 // Error handling middleware - should be the last
