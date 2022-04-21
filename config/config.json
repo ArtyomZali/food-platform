@@ -10,10 +10,10 @@
     "loginSecret": "hse-cs-2022-login-secret"
   },
   "production": {
-    "username": "postgres",
-    "password": "501222150",
+    "username": "vckdqvmyyrpcdi",
+    "password": "7cd4a51cf8d4c2b28cf6ef4d45327363b59fdc8859bd8e9ba8601c6d066dee9f",
     "database": "food_platform_db",
-    "host": "localhost",
+    "host": "ec2-3-211-6-217.compute-1.amazonaws.com",
     "dialect": "postgres",
     "jwtAccessSecret": "hse-cs-2022",
     "jwtRefreshSecret": "hse-cs-refresh-2022",
