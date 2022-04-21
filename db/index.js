@@ -15,9 +15,14 @@ const retry = {
 
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  dialect: config.dialect,
-  pool: pool,
-  retry: retry,
+  dialect: 'postgres',
+  protocol: 'postgres',
+  dialectOptions: {
+      ssl: {
+          require: true,
+          rejectUnauthorized: false
+      }
+  }
 });
 
 const connect = async () => {
