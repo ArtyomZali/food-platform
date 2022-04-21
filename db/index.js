@@ -12,12 +12,7 @@ const retry = {
   max: 5,
 };
 
-const sequelize = new Sequelize(config.database, config.username, config.password, {
-  host: config.host,
-  dialect: config.dialect,
-  pool: pool,
-  retry: retry,
-});
+const sequelize = new Sequelize("postgres://vckdqvmyyrpcdi:7cd4a51cf8d4c2b28cf6ef4d45327363b59fdc8859bd8e9ba8601c6d066dee9f@ec2-3-211-6-217.compute-1.amazonaws.com:5432/d1s5ghfijnqm3g");
 
 const connect = async () => {
   try {
