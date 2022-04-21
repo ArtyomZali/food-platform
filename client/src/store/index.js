@@ -1,7 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import VuexPersistence from 'vuex-persist'
 Vue.use(Vuex)
+
+const vuexLocal = new VuexPersistence({
+  storage: window.localStorage,
+  reducer: (state) => ({ basket: state.basket })
+})
 
 export default new Vuex.Store({
   state: {
@@ -40,9 +45,9 @@ export default new Vuex.Store({
     },
     removeShopItemFromBasket(state, value) {
       const seller = state.basket.find(seller => {
-        return seller.shopItems.find(item => item.id === value);
+        return seller.shopItems.find(item => item.id === value.id);
       });
-      seller.shopItems.splice(seller.shopItems.findIndex(item => item.id === value), 1);
+      seller.shopItems.splice(seller.shopItems.findIndex(item => item.id === value.id), 1);
       if (!seller.shopItems.length) {
         state.basket.splice(state.basket.findIndex(sel => sel.id === seller.id), 1);
       }
@@ -50,11 +55,14 @@ export default new Vuex.Store({
       state.basket = [];
       state.basket = basket;
     },
+    removeSellerFromBasket(state, value) {
+      state.basket.splice(state.basket.findIndex(seller => seller.id === value.id), 1);
+    },
     changeShopItemCount(state, value) {
       const seller = state.basket.find(seller => {
-        return seller.shopItems.find(item => item.id === value);
+        return seller.shopItems.find(item => item.id === value.id);
       });
-      seller.shopItems[seller.shopItems.findIndex(item => item.id === value)] = value;
+      seller.shopItems[seller.shopItems.findIndex(item => item.id === value.id)] = value;
       const basket = [...state.basket];
       state.basket = [];
       state.basket = basket;
@@ -86,6 +94,12 @@ export default new Vuex.Store({
     },
     changeShopItemCount({ commit }, shopItem) {
       commit('changeShopItemCount', shopItem);
+    },
+    removeShopItemFromBasket({ commit }, item) {
+      commit('removeShopItemFromBasket', item);
+    },
+    removeSellerFromBasket({ commit }, seller) {
+      commit('removeSellerFromBasket', seller);
     }
   },
   getters: {
@@ -93,6 +107,7 @@ export default new Vuex.Store({
     isError: state => state.isError,
     errorMessage: state => state.errorMessage,
     isLoading: state => state.isLoading,
-    getBasket: state => state.basket
-  }
+    basket: state => state.basket
+  },
+  plugins: [vuexLocal.plugin]
 })

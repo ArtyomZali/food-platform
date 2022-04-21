@@ -30,7 +30,7 @@
           <v-text-field
             label="Количество"
             v-model="count"
-            :rules="descriptionInputRules"
+            :rules="countInputRules"
             validate-on-blur
           ></v-text-field>
           <v-checkbox
@@ -114,7 +114,7 @@ export default {
           });
         });
         this.isLoading = false;
-        this.$emit("close");
+        this.$emit("close", true);
       }
     },
 

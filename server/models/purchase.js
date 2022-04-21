@@ -16,7 +16,7 @@ const Purchase = sequelize.define(
         key: "id",
       },
     },
-    buyerId: {
+    customerId: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
@@ -25,10 +25,6 @@ const Purchase = sequelize.define(
       },
     },
     status: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    buyerAddress: {
       type: DataTypes.STRING,
       allowNull: false,
     }

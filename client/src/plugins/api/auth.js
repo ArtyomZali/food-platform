@@ -18,11 +18,15 @@ export default {
             );
             store.dispatch('setIsAuth', true);
         } catch (err) {
-            await this.refreshToken();
-            await axios.get(`${this.BASE_URL}/api/auth/check-auth`,
-                { headers: { 'Authorization': this.getAuthToken() } }
-            );
-            store.dispatch('setIsAuth', true);
+            try {
+                await this.refreshToken();
+                await axios.get(`${this.BASE_URL}/api/auth/check-auth`,
+                    { headers: { 'Authorization': this.getAuthToken() } }
+                );
+                store.dispatch('setIsAuth', true);
+            } catch {
+                store.dispatch('setIsAuth', false);
+            }
         }
     },
 
@@ -36,5 +40,6 @@ export default {
 
     logout() {
         this.removeTokens();
+        store.dispatch('setIsAuth', false);
     }
 }

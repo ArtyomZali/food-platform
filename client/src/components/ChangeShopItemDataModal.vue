@@ -30,7 +30,7 @@
           <v-text-field
             label="Количество"
             v-model="count"
-            :rules="descriptionInputRules"
+            :rules="countInputRules"
             validate-on-blur
           ></v-text-field>
           <v-checkbox
@@ -56,7 +56,7 @@
           @click="updateShopItem"
           :loading="isLoading"
           :disabled="!isFormValid"
-          >Создать</v-btn
+          >Изменить</v-btn
         >
       </v-card-actions>
     </v-card>

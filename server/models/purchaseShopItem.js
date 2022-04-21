@@ -24,9 +24,9 @@ const PurchaseShopItem = sequelize.define(
         key: "id",
       },
     },
-    status: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    count: {
+      type: DataTypes.DOUBLE,
+      allowNull: false
     }
   },
   {

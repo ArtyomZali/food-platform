@@ -38,7 +38,7 @@
         link
         :to="'/profile'"
       >
-        <span class="basket-items-count">3</span>
+        <span v-if="basketCount" class="basket-items-count">{{basketCount}}</span>
         <v-icon>mdi-account</v-icon>
       </v-btn>
       <v-btn elevation="0" color="primary" fab small @click="logout">
@@ -66,12 +66,20 @@ export default {
     isAuth() {
       return this.$store.getters.isAuth;
     },
+    basketCount() {
+      const basket = this.$store.getters.basket;
+      let shopItemsCount = 0;
+      basket.forEach(seller => {
+        shopItemsCount += seller.shopItems.length;
+      });
+      return shopItemsCount;
+    }
   },
 
   methods: {
     logout() {
       this.$api.logout();
-      this.$router.go();
+      this.$router.push('/');
     },
   },
 };

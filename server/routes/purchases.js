@@ -10,8 +10,6 @@ router.get('/my', auth, purchaseController.getUserPurchases);
 router.get('/orders', auth, purchaseController.getUserOrders);
 router.post('/', [
     auth,
-    check('sellerId').notEmpty().isInt(),
-    check('shopItems').notEmpty().isArray()
 ], purchaseController.create);
 router.put('/update-status/:id', [
     auth,

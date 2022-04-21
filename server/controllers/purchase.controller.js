@@ -8,6 +8,7 @@ class PurchaseController extends BaseController {
 
       return res.json(data);
     } catch (error) {
+      console.log(error);
       next(error);
     }
   };
@@ -44,6 +45,7 @@ class PurchaseController extends BaseController {
         success: true,
       });
     } catch (error) {
+      console.log(error);
       next(error);
     }
   };

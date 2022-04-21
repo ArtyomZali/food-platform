@@ -30,12 +30,14 @@
 
     <h2>Продавец</h2>
     <div class="d-flex" v-if="sellerProfile">
-      <v-img
-        :src="sellerProfileAvatar"
-        alt="Аватар пользователя"
-        class="seller-profile-page__sellerProfile-avatar"
-        max-width="160"
-      ></v-img>
+      <div class="mr-4 mb-2">
+        <v-img
+          :src="sellerProfileAvatar"
+          alt="Аватар пользователя"
+          class="seller-profile-page__sellerProfile-avatar"
+          max-width="160"
+        ></v-img>
+      </div>
       <div>
         <label class="text-caption" for="description-field">Название</label>
         <p name="description-field">{{ sellerProfile.name }}</p>

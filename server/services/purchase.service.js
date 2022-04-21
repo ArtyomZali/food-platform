@@ -1,5 +1,5 @@
 const ApiError = require('../error/ApiError');
-const { Purchase, PurchaseShopItem, SellerProfile, ShopItem } = require('../models');
+const { Purchase, PurchaseShopItem, SellerProfile, ShopItem, Address } = require('../models');
 const User = require('../models/user');
 
 class PurchaseService {
@@ -8,7 +8,12 @@ class PurchaseService {
       where: { customerId: userId },
       include: [
         {
-          model: ShopItem
+          model: PurchaseShopItem,
+          include: [
+            {
+              model: ShopItem
+            }
+          ]
         },
         {
           model: SellerProfile
@@ -28,21 +33,36 @@ class PurchaseService {
       where: { sellerId: sellerProfile.id },
       include: [
         {
-          model: ShopItem
+          model: PurchaseShopItem,
+          include: [
+            {
+              model: ShopItem
+            }
+          ]
         },
         {
           model: User,
-          attributes: ['name', 'avatar', 'id']
+          attributes: ['name', 'avatar', 'id'],
+          include: [{
+            model: Address
+          }]
         }
       ]
     });
     return orders;
   }
 
-  async create(purchaseData) {
-    const purchase = await Purchase.create(purchaseData.purchase);
-    for (let index = 0; index < purchase.shopItems.length; index++) {
-      await purchase.createShopItem(purchase.shopItems[index]);
+  async create(userId, data) {
+    const purchaseData = {
+      status: 'created',
+      customerId: userId,
+      sellerId: data[0].ownerId
+    }
+    const purchase = await Purchase.create(purchaseData);
+    for (let index = 0; index < data.length; index++) {
+      const shopItem = await ShopItem.findByPk(data[index].id);
+      console.log({ purchaseId: purchase.id, shopItemId: shopItem.id, count: data[index].count })
+      await purchase.createPurchaseShopItem({ purchaseId: purchase.id, shopItemId: shopItem.id, count: data[index].count });
     }
   }
 
@@ -54,8 +74,8 @@ class PurchaseService {
     if (['canceled', 'done'].includes(purchase.status)) throw ApiError.forbidden("Нет возможности изменить статуса заказа");
     if (purchase.customerId !== userId && purchase.sellerId !== sellerProfile?.id) throw ApiError.unauthorized("Нет доступа к заказу");
     if (purchase.customerId === userId && purchaseData.status !== 'canceled') throw ApiError.forbidden("Неправильное значение статуса заказа");
+    return await purchase.update({ status: purchaseData.status })
 
-    return await Purchase.update(purchaseData);
   }
 
   async getById(userId, id) {

@@ -64,8 +64,13 @@ Purchase.belongsTo(User, {
 Purchase.belongsTo(SellerProfile, {
   foreignKey: 'sellerId'
 });
-Purchase.belongsToMany(ShopItem, { through: PurchaseShopItem, foreignKey: 'shopItemId' });
-ShopItem.belongsToMany(Purchase, { through: PurchaseShopItem, foreignKey: 'purchaseId' });
+Purchase.hasMany(PurchaseShopItem, {foreignKey: 'purchaseId'});
+PurchaseShopItem.belongsTo(Purchase, {foreignKey: 'purchaseId'});
+
+ShopItem.hasMany(PurchaseShopItem, {foreignKey: 'shopItemId'});
+PurchaseShopItem.belongsTo(ShopItem, {foreignKey: 'shopItemId'});
+//Purchase.belongsToMany(ShopItem, { through: PurchaseShopItem, foreignKey: 'purchaseId' });
+//ShopItem.belongsToMany(Purchase, { through: PurchaseShopItem, foreignKey: 'shopItemId' });
 
 SellerProfile.belongsToMany(SellerProfileCategory, { through: SellerProfileCategoryBind, foreignKey: 'sellerProfileId' });
 SellerProfileCategory.belongsToMany(SellerProfile, { through: SellerProfileCategoryBind, foreignKey: 'categoryId' });

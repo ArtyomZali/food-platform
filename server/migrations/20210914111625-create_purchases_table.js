@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      buyerId: {
+      customerId: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
@@ -19,12 +19,12 @@ module.exports = {
           key: "id",
         },
       },
-      shopItemId: {
+      sellerId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: {
-            tableName: "shopItems",
+            tableName: "sellerProfiles",
           },
           key: "id",
         },

@@ -15,7 +15,7 @@ router.post('/', [
     check('name').notEmpty().isString(),
     check('description').isString(),
     check('isPublished').notEmpty().isBoolean(),
-    check('categories').isArray()
+    check('categories').exists().isArray()
 ], sellerProfileController.create);
 router.put("/address", [
     auth,
@@ -28,7 +28,7 @@ router.put('/:id', [
     check('name').notEmpty().isString(),
     check('description').isString(),
     check('isPublished').notEmpty().isBoolean(),
-    check('categories').notEmpty().isArray()
+    check('categories').exists().isArray()
 ], sellerProfileController.update);
 
 router.get('/:id', sellerProfileController.getById);
