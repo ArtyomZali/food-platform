@@ -12,12 +12,19 @@ const retry = {
   max: 5,
 };
 
-const sequelize = new Sequelize(config.database, config.username, config.password, {
-  host: config.host,
-  dialect: config.dialect,
-  pool: pool,
-  retry: retry,
-});
+const { DATABASE_URL } = process.env;
+const dbUrl = url.parse(DATABASE_URL);
+const username = dbUrl.auth.substr(0, dbUrl.auth.indexOf(':'));
+const password = dbUrl.auth.substr(
+  dbUrl.auth.indexOf(':') + 1,
+  dbUrl.auth.length
+);
+const dbName = dbUrl.path.slice(1);
+const host = dbUrl.hostname;
+const { port } = dbUrl;
+config.host = host;
+config.port = port;
+const sequelize = new Sequelize(dbName, username, password, config);
 
 const connect = async () => {
   try {
