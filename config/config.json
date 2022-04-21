@@ -3,7 +3,7 @@
     "username": "postgres",
     "password": "501222150",
     "database": "food_platform_db",
-    "host": "127.0.0.1",
+    "host": "localhost",
     "dialect": "postgres",
     "jwtAccessSecret": "hse-cs-2022",
     "jwtRefreshSecret": "hse-cs-refresh-2022",
@@ -13,11 +13,10 @@
     "username": "postgres",
     "password": "501222150",
     "database": "food_platform_db",
-    "host": "db",
+    "host": "localhost",
     "dialect": "postgres",
     "jwtAccessSecret": "hse-cs-2022",
     "jwtRefreshSecret": "hse-cs-refresh-2022",
-    "loginSecret": "hse-cs-2022-login-secret",
-    "use_env_variable": "DATABASE_URL"
+    "loginSecret": "hse-cs-2022-login-secret"
   }
 }
