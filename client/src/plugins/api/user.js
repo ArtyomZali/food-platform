@@ -1,8 +1,11 @@
 import axios from 'axios';
+import store from '../../store';
 export default {
     async getUserData() {
-        return await axios.get(`${this.BASE_URL}/api/users/user-data`,
+        const userData = await axios.get(`${this.BASE_URL}/api/users/user-data`,
             { headers: { 'Authorization': this.getAuthToken() } });
+        store.dispatch('setUserData', userData.data);
+        return userData;
     },
 
     async updateUserData(userData) {

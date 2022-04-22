@@ -1,7 +1,12 @@
 import axios from 'axios';
 export default {
     async getSellerProfiles(query) {
-        return await axios.get(`${this.BASE_URL}/api/seller-profiles${query ? query : ''}`);
+        return await axios.get(`${this.BASE_URL}/api/seller-profiles${query ? query : ''}`,
+            {
+                headers: {
+                    'Authorization': this.getAuthToken()
+                }
+            });
     },
     async getSellerProfile(id) {
         return await axios.get(`${this.BASE_URL}/api/seller-profiles/${id}`);

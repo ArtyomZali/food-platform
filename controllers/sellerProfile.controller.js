@@ -11,7 +11,7 @@ class SellerProfileController extends BaseController {
                 categories: categories ? categories.split(',') : null,
                 sort,
                 search
-            });
+            }, req.userId);
 
             return res.json(data);
         } catch (error) {

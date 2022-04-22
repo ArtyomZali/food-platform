@@ -43,6 +43,12 @@
             :rules="unitNameInputRules"
             validate-on-blur
           ></v-text-field>
+          <v-text-field
+            label="Цена"
+            v-model="price"
+            :rules="priceInputRules"
+            validate-on-blur
+          ></v-text-field>
         </v-form>
       </v-card-text>
 
@@ -99,6 +105,12 @@ export default {
       count: "",
       unitName: "",
       isUnitInteger: false,
+      priceInputRules: [
+        (value) => !!value || "Заполните поле",
+        (value) => +value >= 0 || "Значение не может быть отрицательным!",
+        (value) => Number.isInteger(+value) || "Цена должна быть целым числом!"
+      ],
+      price: "",
     };
   },
 
@@ -116,6 +128,7 @@ export default {
             isPublished: this.shopItem.isPublished,
             unitName: this.unitName,
             isUnitInteger: this.isUnitInteger,
+            price: this.price
           });
         });
         this.isLoading = false;
@@ -138,6 +151,7 @@ export default {
       this.unitName = this.shopItem.unitName;
       this.isUnitInteger = this.shopItem.isUnitInteger;
       this.count = this.shopItem.count;
+      this.price = this.shopItem.price;
     },
   },
 

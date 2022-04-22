@@ -102,6 +102,7 @@ export default {
         });
         await this.$api.signIn({ email: this.email, password: this.password });
         await this.$api.checkAuth();
+        this.$api.getUserData();
         this.$router.push("/");
       });
       this.isLoading = false;

@@ -10,6 +10,7 @@ class UserService {
       where: {
         id,
       },
+      attributes: { exclude: ['password'] },
     });
 
     if (!user) throw ApiError.badRequest("Задан неверный параметр ID");
@@ -22,7 +23,7 @@ class UserService {
       where: {
         id: userId,
       },
-      attributes: {exclude: ['password']},
+      attributes: { exclude: ['password'] },
       include: [
         {
           model: Address
@@ -54,14 +55,16 @@ class UserService {
       },
     });
     if (!user) throw ApiError.badRequest("Задан неверный параметр ID");
-
-    if (user.addressId) {
-      await Address.update(body, { where: { id: user.addressId } });
+    if (body.x && body.y) {
+      if (user.addressId) {
+        return await Address.update(body, { where: { id: user.addressId } });
+      } else {
+        return await user.createAddress(body);
+      }
     } else {
-      await user.createAddress(body);
+      console.log(1);
+      return user.setAddress(null);
     }
-
-    return User.update(body, { where: { id } });
   };
 }
 

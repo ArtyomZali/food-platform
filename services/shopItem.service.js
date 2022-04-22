@@ -7,7 +7,32 @@ class ShopItemService {
   async all(query) {
     const whereParams = {};
 
+    const order = [];
+    switch (query.sort) {
+      case 'createdAtDesc':
+        order.push(['createdAt', 'DESC']);
+        break;
 
+      case 'createdAtAsc':
+        order.push(['createdAt', 'ASC']);
+        break;
+
+      case 'updatedAtDesc':
+        order.push(['updatedAt', 'DESC']);
+        break;
+
+      case 'updatedAtAsc':
+        order.push(['updatedAt', 'ASC']);
+        break;
+
+      case 'priceDesc':
+        order.push(['price', 'DESC']);
+        break;
+
+      case 'priceAsc':
+        order.push(['price', 'ASC']);
+        break;
+    }
     if (query.categories)
       whereParams.categoryId = {
         [Op.in]: query.categories,
@@ -17,23 +42,24 @@ class ShopItemService {
         [Op.iLike]: `%${query.search}%`,
       };
 
-    return await ShopItem.findAll({
+    const shopItems = await ShopItem.findAll({
       where: {
         isPublished: true,
         ...whereParams
       },
 
-      order: [
-        ['createdAt', query.sort?.key === 'createdAtDesc' ? 'DESC' : 'ASC'],
-        ['updatedAt', query.sort?.key === 'updatedAtDesc' ? 'DESC' : 'ASC'],
-      ],
+      order,
 
       include: [
         {
           model: Review
+        },
+        {
+          model: ShopItemCategory
         }
       ]
     });
+    return shopItems;
   }
 
   async getCategories() {

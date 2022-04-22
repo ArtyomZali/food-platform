@@ -19,9 +19,17 @@
             :rules="emailInputRules"
             validate-on-blur
           ></v-text-field>
-          <v-checkbox v-model="noAddress" label="Не хочу указывать адрес"></v-checkbox>
+          <v-checkbox
+            v-model="noAddress"
+            label="Не хочу указывать адрес"
+          ></v-checkbox>
         </v-form>
-        <yandex-map v-if="!noAddress" :coords="address" :zoom="10" @click="changeCoords">
+        <yandex-map
+          v-if="!noAddress"
+          :coords="address"
+          :zoom="10"
+          @click="changeCoords"
+        >
           <ymap-marker :coords="address" marker-id="123" />
         </yandex-map>
       </v-card-text>
@@ -91,16 +99,21 @@ export default {
       if (this.isFormValid) {
         this.isLoading = true;
         await this.$callWithErrorHandler(async () => {
-          await this.$api.updateUserData({ name: this.name, email: this.email });
+          await this.$api.updateUserData({
+            name: this.name,
+            email: this.email,
+          });
           if (this.address && !this.noAddress) {
             await this.$api.updateUserAddress({
               x: this.address[0],
               y: this.address[1],
             });
+          } else if (this.noAddress) {
+            await this.$api.updateUserAddress(null);
           }
         });
         this.isLoading = false;
-        this.$emit('close');
+        this.$emit("close");
       }
     },
   },

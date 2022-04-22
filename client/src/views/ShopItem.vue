@@ -12,8 +12,11 @@
       <v-col>
         <label class="text-caption" for="description-field">Описание</label>
         <p name="description-field">{{ shopItem.description }}</p>
-        <label class="text-caption" for="phone-field">Количество</label>
-        <p name="phone-field">{{ shopItem.count }} ({{ shopItem.unitName }})</p>
+        <label class="text-caption" for="phone-field">Цена</label>
+        <p>
+          {{ shopItem.price }}р за
+          {{ shopItem.unitName }}
+        </p>
         <v-chip
           v-if="shopItem.ShopItemCategory"
           color="primary"
@@ -22,7 +25,11 @@
           outlined
           >{{ shopItem.ShopItemCategory.name }}
         </v-chip>
-        <v-btn class="d-flex" color="primary" @click="addShopItemToBasket"
+        <v-btn
+          v-if="isAuth && isNotOwnerOfShopItem"
+          class="d-flex"
+          color="primary"
+          @click="addShopItemToBasket"
           >Добавить в корзину</v-btn
         >
       </v-col>
@@ -58,7 +65,11 @@
         >
       </div>
     </div>
-    <label class="text-caption d-block mt-3">Материалы</label>
+    <label
+      class="text-caption d-block mt-3"
+      v-if="shopItem.ShopItemAssets.length"
+      >Материалы</label
+    >
     <assets-slider
       :mutable="false"
       size="lg"
@@ -67,7 +78,7 @@
       @update="getShopItem"
     />
     <h2>Отзывы</h2>
-    <reviews :shopItem="shopItem" :mutable="true" />
+    <reviews :shopItem="shopItem" :mutable="isAuth && isNotOwnerOfShopItem" />
   </v-container>
 </template>
 
@@ -97,6 +108,12 @@ export default {
       return this.sellerProfile?.avatar
         ? `${this.$api.BASE_URL}${this.sellerProfile.avatar}`
         : require("@/assets/default.png");
+    },
+    isAuth() {
+      return this.$store.getters.isAuth;
+    },
+    isNotOwnerOfShopItem() {
+      return this.$store.getters.userData?.id !== this.sellerProfile?.userId;
     },
   },
 

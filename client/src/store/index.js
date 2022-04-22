@@ -14,7 +14,8 @@ export default new Vuex.Store({
     isError: false,
     errorMessage: '',
     isLoading: false,
-    basket: []
+    basket: [],
+    userData: null
   },
   mutations: {
     setIsAuth(state, value) {
@@ -66,6 +67,9 @@ export default new Vuex.Store({
       const basket = [...state.basket];
       state.basket = [];
       state.basket = basket;
+    },
+    setUserData(state, value) {
+      state.userData = value;
     }
   },
   actions: {
@@ -100,6 +104,9 @@ export default new Vuex.Store({
     },
     removeSellerFromBasket({ commit }, seller) {
       commit('removeSellerFromBasket', seller);
+    },
+    setUserData({commit}, userData) {
+      commit('setUserData', userData);
     }
   },
   getters: {
@@ -107,7 +114,8 @@ export default new Vuex.Store({
     isError: state => state.isError,
     errorMessage: state => state.errorMessage,
     isLoading: state => state.isLoading,
-    basket: state => state.basket
+    basket: state => state.basket,
+    userData: state => state.userData
   },
   plugins: [vuexLocal.plugin]
 })

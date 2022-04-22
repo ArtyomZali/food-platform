@@ -13,9 +13,7 @@ router.put("/user-data", [
     check('name').notEmpty().isString(),
 ], userController.update);
 router.put("/address", [
-    auth,
-    check('x').notEmpty().isFloat(),
-    check('y').notEmpty().isFloat(),
+    auth
 ], userController.updateAddress);
 router.get("/:id", userController.getById);
 

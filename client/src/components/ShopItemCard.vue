@@ -2,9 +2,10 @@
   <v-card class="shop-item-card" @click="openShopItemPage">
     <v-img :src="shopItemAvatar" class="shop-item-image"></v-img>
     <h3>{{ shopItem && shopItem.name }}</h3>
+    <p>{{shopItem && shopItem.price}}р за {{shopItem && shopItem.unitName}}</p>
     <v-chip
       color="primary"
-      class="category-chip"
+      class="category-chip mb-2"
       label
       outlined
       v-if="shopItem && shopItem.ShopItemCategory"

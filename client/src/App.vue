@@ -43,8 +43,11 @@ export default {
     },
   },
 
-  beforeMount() {
-    this.$api.checkAuth();
+  async beforeMount() {
+    await this.$api.checkAuth();
+    if(this.$store.getters.isAuth) {
+      this.$api.getUserData();
+    }
   },
 };
 </script>

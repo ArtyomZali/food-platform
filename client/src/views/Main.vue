@@ -7,7 +7,7 @@
     </v-tabs>
     <v-row class="search-row">
       <filters :type="tabs[currentTab].key" @update="updateFilters" />
-      <sort @update="updateSort" />
+      <sort :type="tabs[currentTab].key" @update="updateSort" />
       <search @update="updateSearch" />
     </v-row>
     <v-row class="content-row">
@@ -112,6 +112,9 @@ export default {
 
   watch: {
     currentTab() {
+      this.sort = null;
+      this.filters = [];
+      this.search = null;
       this.getData();
     }
   },

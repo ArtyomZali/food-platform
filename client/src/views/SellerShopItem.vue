@@ -26,6 +26,10 @@
             <p name="phone-field">
               {{ shopItem.count }} ({{ shopItem.unitName }})
             </p>
+            <label class="text-caption" for="phone-field">Цена</label>
+            <p name="phone-field">
+              {{shopItem.price}}р за {{shopItem.unitName}}
+            </p>
             <v-chip
               v-if="shopItem.ShopItemCategory"
               color="primary"

@@ -36,6 +36,10 @@ const ShopItem = sequelize.define(
       type: DataTypes.DOUBLE,
       allowNull: true,
     },
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
     unitName: {
       type: DataTypes.STRING,
       allowNull: false

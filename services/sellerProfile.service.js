@@ -1,18 +1,71 @@
 const ApiError = require("../error/ApiError");
-const { SellerProfile, Address, SellerProfileAsset, SellerProfileCategory, ShopItem, ShopItemCategory } = require("../models");
+const { SellerProfile, Address, SellerProfileAsset, SellerProfileCategory, ShopItem, ShopItemCategory, User } = require("../models");
 
 class SellerProfileService {
-    async all() {
-        return await SellerProfile.findAll({
+    async all(query, userId) {
+        const whereParams = {};
+        const order = [];
+        switch (query.sort) {
+            case 'createdAtDesc':
+                order.push(['createdAt', 'DESC']);
+                break;
+
+            case 'createdAtAsc':
+                order.push(['createdAt', 'ASC']);
+                break;
+
+            case 'updatedAtDesc':
+                order.push(['updatedAt', 'DESC']);
+                break;
+
+            case 'updatedAtAsc':
+                order.push(['updatedAt', 'ASC']);
+                break;
+        }
+        if (query.categories)
+            whereParams.categoryId = {
+                [Op.contains]: query.categories,
+            };
+        if (query.search)
+            whereParams.name = {
+                [Op.iLike]: `%${query.search}%`,
+            };
+
+        const sellerProfiles = await SellerProfile.findAll({
             where: {
-                isPublished: true
+                isPublished: true,
+                ...whereParams
             },
             include: [
                 {
                     model: SellerProfileCategory
+                },
+                {
+                    model: Address
                 }
             ]
         });
+        if (query.sort === 'near' && userId) {
+            const user = await User.findOne({ where: { id: userId }, include: [Address] });
+            return sellerProfiles.sort((first, second) => {
+                if (first.Address) {
+                    if (!second.Address) {
+                        return 1;
+                    } else {
+                        return getDistanceBetweenPoints(first.Address, user.Address) - getDistanceBetweenPoints(second.Address, user.Address);
+                    }
+                } else if (second.Address) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            })
+        }
+        return sellerProfiles;
+    }
+
+    getDistanceBetweenPoints(first, second) {
+        return (first.x - second.x) * (first.x - second.x) + (first.y - second.y) * (first.y - second.y)
     }
 
     async getCategories() {
@@ -68,11 +121,14 @@ class SellerProfileService {
             where: { userId },
         });
         if (!sellerProfile) throw ApiError.badRequest("Задан неверный параметр ID");
-
-        if (sellerProfile.addressId) {
-            return await Address.update(body, { where: { id: sellerProfile.addressId } });
+        if (body.x && body.y) {
+            if (sellerProfile.addressId) {
+                return await Address.update(body, { where: { id: sellerProfile.addressId } });
+            } else {
+                return await sellerProfile.createAddress(body);
+            }
         } else {
-            return await sellerProfile.createAddress(body);
+            sellerProfile.setAddress(null);
         }
     };
 

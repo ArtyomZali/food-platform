@@ -18,7 +18,8 @@ router.post('/', [
     check('isPublished').notEmpty().isBoolean(),
     check('category').exists(),
     check('unitName').notEmpty().isString(),
-    check('isUnitInteger').notEmpty().isBoolean()
+    check('isUnitInteger').notEmpty().isBoolean(),
+    check('price').notEmpty().isInt().withMessage('Цена должна быть целым числом')
 ], shopItemController.create);
 router.put('/:id', [
     auth,
@@ -28,7 +29,8 @@ router.put('/:id', [
     check('isPublished').notEmpty().isBoolean(),
     check('category').exists(),
     check('unitName').notEmpty().isString(),
-    check('isUnitInteger').notEmpty().isBoolean()
+    check('isUnitInteger').notEmpty().isBoolean(),
+    check('price').notEmpty().isInt().withMessage('Цена должна быть целым числом')
 ], shopItemController.update);
 router.delete('/:id', auth, shopItemController.delete);
 router.get('/:id', shopItemController.getById);

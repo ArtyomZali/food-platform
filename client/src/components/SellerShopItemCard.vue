@@ -7,6 +7,7 @@
     ></v-img>
     <div class="seller-shop-item-card__main-info">
       <h3>{{ shopItem.name }}</h3>
+      <p>{{ shopItem.price }}р за {{shopItem.unitName}}</p>
       <v-chip
         v-if="shopItem.ShopItemCategory"
         color="primary"

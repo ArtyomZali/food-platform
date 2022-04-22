@@ -1,16 +1,13 @@
 {
   "development": {
-    "use_env_variable": "DATABASE_URL",
+    "username": "postgres",
+    "password": "501222150",
+    "database": "food_platform_db",
+    "host": "127.0.0.1",
     "dialect": "postgres",
-    "dialectOptions": {
-       "ssl": {
-         "require": true,
-         "rejectUnauthorized": false
-       }
-     },
-     "jwtAccessSecret": "hse-cs-2022",
-     "jwtRefreshSecret": "hse-cs-refresh-2022",
-     "loginSecret": "hse-cs-2022-login-secret"
+    "jwtAccessSecret": "hse-cs-2022",
+    "jwtRefreshSecret": "hse-cs-refresh-2022",
+    "loginSecret": "hse-cs-2022-login-secret"
   },
   "production": {
     "use_env_variable": "DATABASE_URL",

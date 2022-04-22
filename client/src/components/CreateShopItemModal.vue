@@ -43,6 +43,12 @@
             :rules="unitNameInputRules"
             validate-on-blur
           ></v-text-field>
+          <v-text-field
+            label="Цена"
+            v-model="price"
+            :rules="priceInputRules"
+            validate-on-blur
+          ></v-text-field>
         </v-form>
       </v-card-text>
 
@@ -90,6 +96,11 @@ export default {
         (value) => !!value || "Заполните поле",
         (value) => +value >= 0 || "Значение не может быть отрицательным!",
       ],
+      priceInputRules: [
+        (value) => !!value || "Заполните поле",
+        (value) => +value >= 0 || "Значение не может быть отрицательным!",
+      ],
+      price: "",
       categories: [],
       pickedCategory: null,
       count: "",
@@ -111,6 +122,7 @@ export default {
             isPublished: false,
             unitName: this.unitName,
             isUnitInteger: this.isUnitInteger,
+            price: this.price
           });
         });
         this.isLoading = false;

@@ -12,18 +12,27 @@ const retry = {
   max: 5,
 };
 
+let sequelize;
 
-
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  dialect: 'postgres',
-  protocol: 'postgres',
-  dialectOptions: {
+if (env === 'development') {
+  sequelize = new Sequelize(config.database, config.username, config.password, {
+    host: config.host,
+    dialect: config.dialect,
+    pool: pool,
+    retry: retry,
+  });
+} else {
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgres',
+    protocol: 'postgres',
+    dialectOptions: {
       ssl: {
-          require: true,
-          rejectUnauthorized: false
+        require: true,
+        rejectUnauthorized: false
       }
-  }
-});
+    }
+  });
+}
 
 const connect = async () => {
   try {

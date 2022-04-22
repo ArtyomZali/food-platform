@@ -125,6 +125,8 @@ export default {
               x: this.address[0],
               y: this.address[1],
             });
+          } else if(this.noAddress) {
+            await this.$api.updateSellerProfileAddress(null);
           }
         });
         this.isLoading = false;

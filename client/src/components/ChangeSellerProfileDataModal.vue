@@ -123,13 +123,15 @@ export default {
             description: this.description,
             phone: this.noPhone ? null : this.phone,
             categories: this.pickedCategories,
-            isPublished: this.sellerProfile.isPublished
+            isPublished: this.sellerProfile.isPublished,
           });
           if (this.address && !this.noAddress) {
             await this.$api.updateSellerProfileAddress({
               x: this.address[0],
               y: this.address[1],
             });
+          } else if (this.noAddress) {
+            await this.$api.updateSellerProfileAddress(null);
           }
         });
         this.isLoading = false;
