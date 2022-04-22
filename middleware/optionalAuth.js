@@ -23,8 +23,9 @@ function auth(req, res, next) {
       next();
       console.log('No auth token')
     }
+  } else {
+    next();
   }
-  next();
 
 }
 
