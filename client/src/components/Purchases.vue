@@ -33,8 +33,10 @@
           <div>
             <h4>{{ item.ShopItem.name }}</h4>
             <span>Количество: {{ item.count }}</span>
+            <p>Цена: {{ item.count * item.ShopItem.price }}р</p>
           </div>
         </div>
+        <p>Итого: {{ purchaseSum(purchase) }}p</p>
         <v-btn
           v-if="purchase.status !== 'canceled'"
           class="purchase-btn"
@@ -79,6 +81,14 @@ export default {
       return shopItem.avatar
         ? `${this.$api.BASE_URL}${shopItem.avatar}`
         : require("@/assets/default.png");
+    },
+
+    purchaseSum(purchase) {
+      let sum = 0;
+      purchase.PurchaseShopItems.forEach((item) => {
+        sum += item.count * item.ShopItem.price;
+      });
+      return sum.toFixed(0);
     },
     purchaseStatus(status) {
       const map = {

@@ -60,7 +60,7 @@ export default {
 
 <style scoped>
 .shop-item-card {
-  height: 400px;
+  height: 500px;
   padding: 16px;
   cursor: pointer;
   position: relative;

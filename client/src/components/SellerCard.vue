@@ -2,7 +2,7 @@
   <v-card class="shop-item-card" @click="openSellerPage">
     <v-img :src="sellerAvatar" class="shop-item-image"></v-img>
     <h3>{{ seller && seller.name }}</h3>
-    <div v-if="seller && seller.SellerProfileCategories.length">
+    <div class="mt-2" v-if="seller && seller.SellerProfileCategories.length">
       <v-chip
         v-for="category in seller.SellerProfileCategories"
         :key="`seller-profile-category-chip-${category.id}`"

@@ -36,6 +36,7 @@
           <div>
             <h4>{{ item.name }}</h4>
             <span>Количество: {{ item.count }}</span>
+            <p>Цена: {{ item.count * item.price }}p</p>
           </div>
           <v-btn
             class="ml-4"
@@ -48,6 +49,7 @@
             ><v-icon>mdi-close</v-icon></v-btn
           >
         </div>
+        <p>Итого: {{ purchaseSum(seller) }}p</p>
         <v-btn
           class="purchase-btn"
           color="primary"
@@ -92,6 +94,13 @@ export default {
       return shopItem.avatar
         ? `${this.$api.BASE_URL}${shopItem.avatar}`
         : require("@/assets/default.png");
+    },
+    purchaseSum(seller) {
+      let sum = 0;
+      seller.shopItems.forEach((item) => {
+        sum += item.count * item.price;
+      });
+      return sum.toFixed(0);
     },
     openChangeShopItemCountModal(item) {
       this.isChangeShopItemCountModalOpened = true;
