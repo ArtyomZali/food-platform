@@ -15,6 +15,7 @@ class SellerProfileController extends BaseController {
 
             return res.json(data);
         } catch (error) {
+            console.log(error);
             next(error);
         }
     };

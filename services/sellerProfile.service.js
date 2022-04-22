@@ -1,5 +1,6 @@
 const ApiError = require("../error/ApiError");
 const { SellerProfile, Address, SellerProfileAsset, SellerProfileCategory, ShopItem, ShopItemCategory, User } = require("../models");
+const { Op } = require('sequelize');
 
 class SellerProfileService {
     async all(query, userId) {
@@ -52,7 +53,7 @@ class SellerProfileService {
                     if (!second.Address) {
                         return 1;
                     } else {
-                        return getDistanceBetweenPoints(first.Address, user.Address) - getDistanceBetweenPoints(second.Address, user.Address);
+                        return this.getDistanceBetweenPoints(first.Address, user.Address) - this.getDistanceBetweenPoints(second.Address, user.Address);
                     }
                 } else if (second.Address) {
                     return -1;
