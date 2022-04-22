@@ -98,7 +98,7 @@ class ShopItemService {
     if (shopItem.ownerId !== sellerProfile.id) throw ApiError.badRequest("У пользователя нет доступа к изменению товара");
 
     const { category, ...rest } = shopItemData;
-    shopItem = await ShopItem.update({ ...rest, categoryId: category ? category.id : null }, { where: { id: sellerProfile.id } });
+    shopItem = await shopItem.update({ ...rest, categoryId: category ? category.id : null });
 
     return shopItem;
   }
