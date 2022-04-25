@@ -28,5 +28,5 @@ router.put('/:id', [
     check('isPublished').notEmpty().isBoolean(),
     check('categories').exists().isArray()
 ], sellerProfileController.update);
-
+router.get('/:id', sellerProfileController.getById)
 module.exports = router;

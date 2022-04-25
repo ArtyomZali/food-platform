@@ -8,6 +8,9 @@ export default {
                 }
             });
     },
+    async getSellerProfile(id) {
+        return axios.get(`${this.BASE_URL}/api/seller-profiles/${id}`);
+    },
     async getUserSellerProfile() {
         return axios.get(`${this.BASE_URL}/api/seller-profiles/my`,
             {
