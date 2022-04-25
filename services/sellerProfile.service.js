@@ -59,8 +59,9 @@ class SellerProfileService {
             })
         }
         if (query.categories) {
+            console.log(query.categories);
             sellerProfiles = sellerProfiles.filter(profile => {
-                return profile.SellerProfileCategories.length && profile.SellerProfileCategories.find(category => query.categories.includes(category.id));
+                return profile.SellerProfileCategories.length && profile.SellerProfileCategories.find(category => query.categories.includes(`${category.id}`));
             })
         }
         return sellerProfiles;
