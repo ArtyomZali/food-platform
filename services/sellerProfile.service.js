@@ -23,16 +23,12 @@ class SellerProfileService {
                 order.push(['updatedAt', 'ASC']);
                 break;
         }
-        if (query.categories)
-            whereParams.categoryId = {
-                [Op.contains]: query.categories,
-            };
         if (query.search)
             whereParams.name = {
                 [Op.iLike]: `%${query.search}%`,
             };
 
-        const sellerProfiles = await SellerProfile.findAll({
+        let sellerProfiles = await SellerProfile.findAll({
             where: {
                 isPublished: true,
                 ...whereParams
@@ -48,7 +44,7 @@ class SellerProfileService {
         });
         if (query.sort === 'near' && userId) {
             const user = await User.findOne({ where: { id: userId }, include: [Address] });
-            return sellerProfiles.sort((first, second) => {
+            sellerProfiles = sellerProfiles.sort((first, second) => {
                 if (first.Address) {
                     if (!second.Address) {
                         return 1;
@@ -60,6 +56,11 @@ class SellerProfileService {
                 } else {
                     return 0;
                 }
+            })
+        }
+        if (query.categories) {
+            sellerProfiles = sellerProfiles.filter(profile => {
+                return profile.SellerProfileCategories.length && profile.SellerProfileCategories.find(category => query.categories.includes(category.id));
             })
         }
         return sellerProfiles;
