@@ -21,8 +21,4 @@ export default {
             { headers: { 'Authorization': this.getAuthToken() } }
         );
     },
-
-    async getOtherUserData(id) {
-        await axios.get(`${this.BASE_URL}/api/users/${id}`);
-    },
 }

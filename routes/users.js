@@ -15,6 +15,5 @@ router.put("/user-data", [
 router.put("/address", [
     auth
 ], userController.updateAddress);
-router.get("/:id", userController.getById);
 
 module.exports = router;
