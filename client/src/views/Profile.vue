@@ -38,7 +38,8 @@
         >
       </v-col>
     </v-col>
-    <v-divider vertical></v-divider>
+    <v-divider class="vertical-divider" vertical></v-divider>
+    <v-divider class="horizontal-divider" horizontal></v-divider>
     <v-col>
       <v-tabs v-model="currentTab" centered>
         <v-tab v-for="tab in tabs" :key="`profile-page-tab-${tab.id}`">{{
@@ -169,6 +170,20 @@ export default {
     height: 160px;
     width: 160px;
     margin-bottom: 24px;
+  }
+}
+.horizontal-divider {
+  display: none;
+}
+@media (max-width: 900px) {
+  .profile-page {
+    flex-direction: column;
+  }
+  .horizontal-divider {
+    display: initial;
+  }
+  .vertical-divider {
+    display: none;
   }
 }
 .ymap-container {

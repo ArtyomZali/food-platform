@@ -84,7 +84,8 @@
           @update="getSellerProfileData"
         />
       </v-col>
-      <v-divider vertical></v-divider>
+      <v-divider class="vertical-divider" vertical></v-divider>
+      <v-divider class="horizontal-divider" horizontal></v-divider>
       <v-col>
         <v-tabs v-model="currentTab" centered>
           <v-tab v-for="tab in tabs" :key="`profile-page-tab-${tab.id}`">{{
@@ -272,6 +273,22 @@ export default {
   height: 100%;
   &__seller-profile {
     display: flex;
+
+    .horizontal-divider {
+      display: none;
+    }
+  }
+  @media (max-width: 900px) {
+    &__seller-profile {
+      flex-direction: column;
+    }
+
+    .horizontal-divider {
+      display: initial;
+    }
+    .vertical-divider {
+      display: none;
+    }
   }
   &__no-seller-profile-block {
     height: 100%;

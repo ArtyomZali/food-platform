@@ -132,11 +132,29 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@media (min-width: 1650px) {
+  .container {
+    max-width: 1185px;
+  }
+}
 .grid {
   display: grid;
   grid-template-columns: 33% 33% 33%;
   grid-gap: 16px;
   width: 100%;
+}
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: 50% 50%;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 100%;
+    padding: 16px;
+  }
 }
 .seller-profile-page {
   height: 100%;

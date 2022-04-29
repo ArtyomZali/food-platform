@@ -150,6 +150,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+@media (min-width: 1650px) {
+  .container {
+    max-width: 1185px;
+  }
+}
 .seller-profile-page {
   height: 100%;
   &__seller-profile {

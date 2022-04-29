@@ -11,10 +11,7 @@
       <search @update="updateSearch" />
     </v-row>
     <v-row class="content-row">
-      <div
-        v-if="tabs[currentTab].key === 'shopItems'"
-        class="grid"
-      >
+      <div v-if="tabs[currentTab].key === 'shopItems'" class="grid">
         <shop-item-card
           v-for="shopItem in shopItems"
           :key="`shop-item-card-${shopItem.id}`"
@@ -75,7 +72,9 @@ export default {
     },
     async getSellerProfiles() {
       this.$callWithErrorHandler(async () => {
-        this.sellers = (await this.$api.getSellerProfiles(this.currentQuery)).data;
+        this.sellers = (
+          await this.$api.getSellerProfiles(this.currentQuery)
+        ).data;
       });
     },
     updateFilters(value) {
@@ -116,7 +115,7 @@ export default {
       this.filters = [];
       this.search = null;
       this.getData();
-    }
+    },
   },
 
   beforeMount() {
@@ -135,6 +134,26 @@ export default {
   display: grid;
   grid-template-columns: 33% 33% 33%;
   grid-gap: 16px;
-  width: 100%
+  width: 100%;
+}
+
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: 50% 50%;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 100%;
+    padding: 16px;
+  }
+}
+
+@media (min-width: 1650px) {
+  .container {
+    max-width: 1185px;
+  }
 }
 </style>

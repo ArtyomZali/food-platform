@@ -111,4 +111,10 @@ export default {
   width: 16px;
   text-align: center;
 }
+
+@media (max-width: 500px) {
+  h1 {
+    display: none;
+  }
+}
 </style>
