@@ -42,35 +42,46 @@
           >Изменить статус</v-btn
         >
         <v-btn
-            color="primary"
-            link
-            text
-            :to="`/chats/${order.User.id}`"
+          v-if="order.User.Address"
+          color="secondary"
+          @click="openAddressModal(order.User.Address)"
         >
-            Перейти в чат
+          Показать адрес
+        </v-btn>
+        <v-btn color="primary" link text :to="`/chats/${order.User.id}`">
+          Перейти в чат
         </v-btn>
       </v-expansion-panel-content>
     </v-expansion-panel>
     <change-order-status-modal
-        :isOpened="isChangeOrderStatusModalOpened"
-        :order="currentOrder"
-        @close="closeChangeOrderStatusModal"
+      :isOpened="isChangeOrderStatusModalOpened"
+      :order="currentOrder"
+      @close="closeChangeOrderStatusModal"
+    />
+    <address-modal
+      :isOpened="isAddressModalOpened"
+      :address="currentAddress"
+      @close="closeAddressModal"
     />
   </v-expansion-panels>
 </template>
 
 <script>
-import ChangeOrderStatusModal from './ChangeOrderStatusModal.vue';
+import ChangeOrderStatusModal from "./ChangeOrderStatusModal.vue";
+import AddressModal from "./AddressModal.vue";
 
 export default {
   components: {
-    ChangeOrderStatusModal
+    ChangeOrderStatusModal,
+    AddressModal,
   },
   data() {
     return {
       isChangeOrderStatusModalOpened: false,
+      isAddressModalOpened: false,
       currentOrder: null,
       orders: [],
+      currentAddress: null,
     };
   },
   methods: {
@@ -108,12 +119,20 @@ export default {
         this.$callWithErrorHandler(async () => {
           await this.$api.updatePurchaseStatus({
             id: this.currentOrder.id,
-            status: value
+            status: value,
           });
           this.getUserOrders();
         });
       }
       this.currentOrder = null;
+    },
+    openAddressModal(address) {
+      this.currentAddress = [address.x, address.y];
+      this.isAddressModalOpened = true;
+    },
+    closeAddressModal() {
+      this.currentAddress = null;
+      this.isAddressModalOpened = false;
     },
   },
   beforeMount() {
@@ -159,5 +178,9 @@ export default {
 .expansion-content {
   border: 1px solid #eee;
   border-top: none;
+}
+
+.v-btn {
+  margin-right: 8px;
 }
 </style>
