@@ -29,7 +29,7 @@ export default {
     },
     async readMessages(chatData) {
         return await axios.put(`${this.BASE_URL}/api/chats/read-messages/${chatData.id}`,
-            chatData,
+            {},
             {
                 headers: {
                     'Authorization': this.getAuthToken()
@@ -47,6 +47,20 @@ export default {
         );
     },
     async getChat(id) {
-        return await axios.get(`${this.BASE_URL}/api/chats/${id}`);
+        return await axios.get(`${this.BASE_URL}/api/chats/${id}`,
+            {
+                headers: {
+                    'Authorization': this.getAuthToken()
+                }
+            });
     },
+
+    async getChatBySellerAndCustomerIds(sellerId, customerId) {
+        return await axios.get(`${this.BASE_URL}/api/chats/by-seller-and-customer-ids?sellerId=${sellerId}&customerId=${customerId}`,
+            {
+                headers: {
+                    'Authorization': this.getAuthToken()
+                }
+            });
+    }
 }

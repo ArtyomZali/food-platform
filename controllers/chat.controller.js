@@ -4,7 +4,7 @@ const BaseController = require('./base.controller');
 class ChatController extends BaseController {
   all = async (req, res, next) => {
     try {
-      const data = await chatService.all();
+      const data = await chatService.all(req.userId);
 
       return res.json(data);
     } catch (error) {
@@ -40,12 +40,13 @@ class ChatController extends BaseController {
     try {
       await this.respondWithValidationErrors(req, next);
 
-      await chatService.readMessages(req.userId, req.body);
+      await chatService.readMessages(req.userId, req.params.id);
 
       return res.json({
         success: true,
       });
     } catch (error) {
+      console.log(error);
       next(error);
     }
   };
@@ -66,9 +67,19 @@ class ChatController extends BaseController {
       const data = await chatService.getById(req.userId, req.params.id);
       return res.json(data);
     } catch (error) {
+      console.log(error);
       next(error);
     }
   };
+
+  getBySellerAndCustomerIds = async (req, res, next) => {
+    try {
+      const data = await chatService.getBySellerAndCustomerIds(req.userId, +req.query.sellerId, +req.query.customerId);
+      return res.json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new ChatController();

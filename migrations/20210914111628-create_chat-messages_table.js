@@ -19,6 +19,10 @@ module.exports = {
           key: "id",
         },
       },
+      author: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       isSeen: {
         type: Sequelize.BOOLEAN,
         allowNull: false,

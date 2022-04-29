@@ -33,7 +33,7 @@ Chat.belongsTo(SellerProfile, {
 Chat.hasMany(ChatMessage, {
   foreignKey: 'chatId'
 });
-ChatMessage.belongsTo(Chat);
+ChatMessage.belongsTo(Chat, { foreignKey: 'chatId' });
 
 User.belongsTo(Address, {
   foreignKey: 'addressId'
@@ -64,11 +64,11 @@ Purchase.belongsTo(User, {
 Purchase.belongsTo(SellerProfile, {
   foreignKey: 'sellerId'
 });
-Purchase.hasMany(PurchaseShopItem, {foreignKey: 'purchaseId'});
-PurchaseShopItem.belongsTo(Purchase, {foreignKey: 'purchaseId'});
+Purchase.hasMany(PurchaseShopItem, { foreignKey: 'purchaseId' });
+PurchaseShopItem.belongsTo(Purchase, { foreignKey: 'purchaseId' });
 
-ShopItem.hasMany(PurchaseShopItem, {foreignKey: 'shopItemId'});
-PurchaseShopItem.belongsTo(ShopItem, {foreignKey: 'shopItemId'});
+ShopItem.hasMany(PurchaseShopItem, { foreignKey: 'shopItemId' });
+PurchaseShopItem.belongsTo(ShopItem, { foreignKey: 'shopItemId' });
 //Purchase.belongsToMany(ShopItem, { through: PurchaseShopItem, foreignKey: 'purchaseId' });
 //ShopItem.belongsToMany(Purchase, { through: PurchaseShopItem, foreignKey: 'shopItemId' });
 

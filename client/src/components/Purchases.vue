@@ -44,6 +44,13 @@
           @click="openCancelPurchaseModal(purchase)"
           >Отменить</v-btn
         >
+        <v-btn
+          class="purchase-btn"
+          color="secondary"
+          @click="openChat(purchase.SellerProfile)"
+        >
+          Перейти в чат
+        </v-btn>
       </v-expansion-panel-content>
     </v-expansion-panel>
     <confirmation-modal
@@ -121,6 +128,25 @@ export default {
       }
       this.currentPurchase = null;
     },
+    openChat(sellerProfile) {
+      this.$callWithErrorHandler(async () => {
+        let chat = (
+          await this.$api.getChatBySellerAndCustomerIds(
+            sellerProfile.id,
+            this.$store.getters.userData.id
+          )
+        ).data;
+        if (!chat) {
+          chat = (
+            await this.$api.createChat({
+              sellerId: sellerProfile.id,
+              customerId: this.$store.getters.userData.id,
+            })
+          ).data;
+        }
+        this.$router.push(`/chat/${chat.id}`);
+      });
+    },
   },
   beforeMount() {
     this.getUserPurchases();
@@ -154,8 +180,7 @@ export default {
 }
 
 .purchase-btn {
-  display: block;
-  margin-left: auto;
+  margin: 0 16px 0 0;
 }
 
 .expansion-header {
