@@ -117,9 +117,7 @@ class ChatService {
             }
         });
         const sellerProfile = await SellerProfile.findOne({ where: { userId } });
-
-        if (!chat) throw ApiError.badRequest("Задан неверный параметр ID");
-        if (chat.sellerId !== sellerProfile?.id && chat.customerId !== userId) throw ApiError.unauthorized("Нет доступа к чату");
+        if (chat && chat.sellerId !== sellerProfile?.id && chat.customerId !== userId) throw ApiError.unauthorized("Нет доступа к чату");
 
         return chat;
     }
