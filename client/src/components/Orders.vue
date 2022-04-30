@@ -48,7 +48,11 @@
         >
           Показать адрес
         </v-btn>
-        <v-btn color="primary" link text :to="`/chats/${order.User.id}`">
+        <v-btn
+          class="purchase-btn"
+          color="secondary"
+          @click="openChat(order.User)"
+        >
           Перейти в чат
         </v-btn>
       </v-expansion-panel-content>
@@ -71,6 +75,12 @@ import ChangeOrderStatusModal from "./ChangeOrderStatusModal.vue";
 import AddressModal from "./AddressModal.vue";
 
 export default {
+  props: {
+    sellerProfile: {
+      type: Object,
+      required: true
+    }
+  },
   components: {
     ChangeOrderStatusModal,
     AddressModal,
@@ -133,6 +143,25 @@ export default {
     closeAddressModal() {
       this.currentAddress = null;
       this.isAddressModalOpened = false;
+    },
+    openChat(user) {
+      this.$callWithErrorHandler(async () => {
+        let chat = (
+          await this.$api.getChatBySellerAndCustomerIds(
+            user.id,
+            this.sellerProfile.id
+          )
+        ).data;
+        if (!chat) {
+          chat = (
+            await this.$api.createChat({
+              sellerId: this.sellerProfile.id,
+              customerId: user.id,
+            })
+          ).data;
+        }
+        this.$router.push(`/chat/${chat.id}`);
+      });
     },
   },
   beforeMount() {
