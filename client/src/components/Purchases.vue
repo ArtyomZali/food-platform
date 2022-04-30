@@ -45,6 +45,13 @@
           >Отменить</v-btn
         >
         <v-btn
+          v-if="purchase.SellerProfile.Address"
+          color="secondary"
+          @click="openAddressModal(purchase.SellerProfile.Address)"
+        >
+          Показать адрес
+        </v-btn>
+        <v-btn
           class="purchase-btn"
           color="secondary"
           @click="openChat(purchase.SellerProfile)"
@@ -61,21 +68,31 @@
       @close="closeCancelPurchaseModal"
       @confirm="closeCancelPurchaseModal(true)"
     />
+    
+    <address-modal
+      :isOpened="isAddressModalOpened"
+      :address="currentAddress"
+      @close="closeAddressModal"
+    />
   </v-expansion-panels>
 </template>
 
 <script>
 import ConfirmationModal from "./ConfirmationModal.vue";
+import AddressModal from "./AddressModal.vue";
 
 export default {
   components: {
     ConfirmationModal,
+    AddressModal
   },
   data() {
     return {
       isCancelPurchaseModalOpened: false,
       currentPurchase: null,
       purchases: [],
+      isAddressModalOpened: false,
+      currentAddress: null,
     };
   },
   methods: {
@@ -147,6 +164,14 @@ export default {
         this.$router.push(`/chat/${chat.id}`);
       });
     },
+    openAddressModal(address) {
+      this.currentAddress = [address.x, address.y];
+      this.isAddressModalOpened = true;
+    },
+    closeAddressModal() {
+      this.currentAddress = null;
+      this.isAddressModalOpened = false;
+    },
   },
   beforeMount() {
     this.getUserPurchases();
@@ -190,5 +215,8 @@ export default {
 .expansion-content {
   border: 1px solid #eee;
   border-top: none;
+}
+.v-btn {
+  margin-right: 8px;
 }
 </style>

@@ -79,9 +79,9 @@ export default {
     return {
       isChangeOrderStatusModalOpened: false,
       isAddressModalOpened: false,
+      currentAddress: null,
       currentOrder: null,
       orders: [],
-      currentAddress: null,
     };
   },
   methods: {

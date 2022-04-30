@@ -16,7 +16,10 @@ class PurchaseService {
           ]
         },
         {
-          model: SellerProfile
+          model: SellerProfile,
+          include: [{
+            model: Address
+          }]
         }
       ]
     });
